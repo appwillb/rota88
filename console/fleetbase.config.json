@@ -1,6 +1,6 @@
 {
-    "API_HOST": "http://api.82.29.62.95.sslip.io",
-    "SOCKETCLUSTER_HOST": "socket.82.29.62.95.sslip.io",
+    "API_HOST": "http://painel.82.29.62.95.sslip.io",
+    "SOCKETCLUSTER_HOST": "painel.82.29.62.95.sslip.io",
     "SOCKETCLUSTER_PORT": 80,
     "SOCKETCLUSTER_SECURE": false
 }
