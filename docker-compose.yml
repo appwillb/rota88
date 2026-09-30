@@ -82,6 +82,8 @@ services:
     restart: unless-stopped
     ports:
       - "4200:4200"
+    labels:
+      - "traefik.http.services.console.loadbalancer.server.port=4200"
     environment:
       DISABLE_RUNTIME_CONFIG: "false"
     volumes:
@@ -93,6 +95,7 @@ services:
   application:
     restart: unless-stopped
     image: fleetbase/fleetbase-api:latest
+    command: ["frankenphp", "run", "--config", "/fleetbase/Caddyfile"]
     volumes:
       - ./api/.env:/fleetbase/api/.env
       - api_storage:/fleetbase/api/storage/app
