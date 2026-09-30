@@ -1,0 +1,7 @@
+{
+  "_comentario": "Substitua pelos subdominios configurados no seu Coolify",
+  "API_HOST": "https://api-fleet.seudominio.com",
+  "SOCKETCLUSTER_HOST": "socket-fleet.seudominio.com",
+  "SOCKETCLUSTER_PORT": 443,
+  "SOCKETCLUSTER_SECURE": true
+}

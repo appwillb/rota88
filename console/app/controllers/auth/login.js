@@ -1,0 +1,312 @@
+import Controller, { inject as controller } from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import pathToRoute from '@fleetbase/ember-core/utils/path-to-route';
+
+export default class AuthLoginController extends Controller {
+    @controller('auth.forgot-password') forgotPasswordController;
+    @service notifications;
+    @service urlSearchParams;
+    @service session;
+    @service router;
+    @service intl;
+    @service fetch;
+    @service oauth;
+
+    /**
+     * Whether or not to remember the users session
+     *
+     * @var {Boolean}
+     */
+    @tracked rememberMe = false;
+
+    /**
+     * The identity to authenticate with
+     *
+     * @var {String}
+     */
+    @tracked identity = null;
+
+    /**
+     * The password to authenticate with
+     *
+     * @var {String}
+     */
+    @tracked password = null;
+
+    /**
+     * Login is validating user input
+     *
+     * @var {Boolean}
+     */
+    @tracked isValidating = false;
+
+    /**
+     * Login is processing
+     *
+     * @var {Boolean}
+     */
+    @tracked isLoading = false;
+
+    /**
+     * If the connection or requesst it taking too long
+     *
+     * @var {Boolean}
+     */
+    @tracked isSlowConnection = false;
+
+    /**
+     * Interval to determine when to timeout the request
+     *
+     * @var {Integer}
+     */
+    @tracked timeout = null;
+
+    /**
+     * Number of failed login attempts
+     *
+     * @var {Integer}
+     */
+    @tracked failedAttempts = 0;
+
+    /**
+     * Authentication token.
+     *
+     * @memberof AuthLoginController
+     */
+    @tracked token;
+
+    /**
+     * Action to login user.
+     *
+     * @param {Event} event
+     * @return {void}
+     * @memberof AuthLoginController
+     */
+    @action async login(event) {
+        // firefox patch
+        event.preventDefault();
+        // get user credentials
+        const { identity, password, rememberMe } = this;
+
+        // If no password error
+        if (!identity) {
+            return this.notifications.warning(this.intl.t('auth.login.no-identity-notification'));
+        }
+
+        // If no password error
+        if (!password) {
+            return this.notifications.warning(this.intl.t('auth.login.no-identity-notification'));
+        }
+
+        // start loader
+        this.set('isLoading', true);
+        // set where to redirect on login
+        this.setRedirect();
+
+        // Submit the password first. The server only starts a two-factor session once the
+        // password checks out, so the emailed/SMS code can never stand in for it.
+        let response;
+        try {
+            response = await this.fetch.post('auth/login', { identity, password, remember: rememberMe });
+        } catch (error) {
+            return this.handleLoginError(error, identity);
+        }
+
+        if (response?.isEnabled === true && response.twoFaSession) {
+            return this.session.store
+                .persist({ identity })
+                .then(() => {
+                    return this.router.transitionTo('auth.two-fa', { queryParams: { token: response.twoFaSession } }).then(() => {
+                        this.reset('success');
+                    });
+                })
+                .catch((error) => {
+                    this.notifications.serverError(error);
+                    this.reset('error');
+
+                    throw error;
+                });
+        }
+
+        // Establish the session with the token just issued, rather than sending the
+        // password a second time.
+        try {
+            await this.session.authenticate('authenticator:fleetbase', { identity, authToken: response?.token }, rememberMe);
+        } catch (error) {
+            return this.handleLoginError(error, identity);
+        }
+
+        if (this.session.isAuthenticated) {
+            this.success();
+        }
+    }
+
+    /**
+     * Route a failed login to the right follow-up.
+     *
+     * @param {Error} error
+     * @param {String} identity
+     * @return {void}
+     */
+    handleLoginError(error, identity) {
+        this.failedAttempts++;
+
+        // Handle unverified user
+        if (error.toString().includes('not verified')) {
+            return this.sendUserForEmailVerification(identity);
+        }
+
+        // Handle password reset required
+        if (error.toString().includes('reset required')) {
+            return this.sendUserForPasswordReset(identity);
+        }
+
+        return this.failure(error);
+    }
+
+    /**
+     * Begin an OAuth sign-in.
+     *
+     * Deliberately does not reuse login(): there is no typed identity or password
+     * here — the provider has not told us who this is yet. Two-factor is still
+     * enforced, by the server, when the handshake comes back.
+     *
+     * @param {Object} provider
+     * @return {void}
+     */
+    @action continueWithProvider(provider) {
+        if (this.isLoading || !provider?.id) {
+            return;
+        }
+
+        this.set('isLoading', true);
+
+        // The server validates this path and echoes it back through the callback; it
+        // never reaches the redirect host.
+        const shift = this.urlSearchParams.get('shift');
+
+        this.oauth.startAuthorization(provider.id, {
+            intent: 'login',
+            returnTo: shift && shift.startsWith('/') ? shift : null,
+        });
+    }
+
+    /**
+     * Transition user to onboarding screen
+     */
+    @action transitionToOnboard() {
+        return this.router.transitionTo('onboard');
+    }
+
+    /**
+     * Transition to forgot password screen, if email is set - set it.
+     */
+    @action forgotPassword() {
+        return this.router.transitionTo('auth.forgot-password').then(() => {
+            if (this.email) {
+                this.forgotPasswordController.email = this.email;
+            }
+        });
+    }
+
+    /**
+     * Creates an email verification session and transitions user to verification route.
+     *
+     * @param {String} email
+     * @return {Promise<Transition>}
+     * @memberof AuthLoginController
+     */
+    @action sendUserForEmailVerification(email) {
+        return this.fetch.post('auth/create-verification-session', { email, send: true }).then(({ token, session }) => {
+            return this.session.store.persist({ email }).then(() => {
+                this.notifications.warning(this.intl.t('auth.login.unverified-notification'));
+                return this.router.transitionTo('auth.verification', { queryParams: { token, hello: session } }).then(() => {
+                    this.reset('error');
+                });
+            });
+        });
+    }
+
+    /**
+     * Sends user to forgot password flow.
+     *
+     * @param {String} email
+     * @return {Promise<Transition>}
+     * @memberof AuthLoginController
+     */
+    @action sendUserForPasswordReset(email) {
+        this.notifications.warning(this.intl.t('auth.login.password-reset-required'));
+        return this.router.transitionTo('auth.forgot-password', { queryParams: { email } }).then(() => {
+            this.reset('error');
+        });
+    }
+
+    /**
+     * Sets correct route to send user to after login.
+     *
+     * @void
+     */
+    setRedirect() {
+        const shift = this.urlSearchParams.get('shift');
+
+        if (shift) {
+            this.session.setRedirect(pathToRoute(shift));
+        }
+    }
+
+    /**
+     * Handles the authentication success
+     *
+     * @void
+     */
+    success() {
+        this.reset('success');
+    }
+
+    /**
+     * Handles the authentication failure
+     *
+     * @param {String} error An error message
+     * @void
+     */
+    failure(error) {
+        this.notifications.serverError(error);
+        this.reset('error');
+    }
+
+    /**
+     * Handles the request slow connection
+     *
+     * @void
+     */
+    slowConnection() {
+        this.notifications.error(this.intl.t('auth.login.slow-connection-message'));
+    }
+
+    /**
+     * Reset the login form
+     *
+     * @param {String} type
+     * @void
+     */
+    reset(type) {
+        // reset login form state
+        this.isLoading = false;
+        this.isSlowConnection = false;
+        // reset login form state depending on type of reset
+        switch (type) {
+            case 'success':
+                this.identity = null;
+                this.password = null;
+                this.isValidating = false;
+                break;
+            case 'error':
+            case 'fail':
+                this.password = null;
+                break;
+        }
+        // clearTimeout(this.timeout);
+    }
+}
