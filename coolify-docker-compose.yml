@@ -146,12 +146,8 @@ services:
   # 8. PAINEL WEB DO CONSOLE (Frontend Ember.js / Nginx)
   # =========================================================================
   console:
+    image: fleetbase/fleetbase-console:latest
     restart: unless-stopped
-    build:
-      context: ./console
-      dockerfile: Dockerfile
-      args:
-        ENVIRONMENT: production
     ports:
       - "4200:4200"
     environment:
