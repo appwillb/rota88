@@ -1,29 +1,110 @@
 /* ==========================================================================
-   ROTA 88 - TEMA PERSONALIZADO & WHITE-LABEL (PRODUÇÃO)
+   ROTA 88 - TEMA DE ALTO CONTRASTE & IDENTIDADE VISUAL PROFISSIONAL
    ========================================================================== */
 
-:root {
-    --rota88-primary: #f59e0b;
-    --rota88-primary-hover: #d97706;
-    --rota88-bg-dark: #0b132b;
-    --rota88-navy-card: #1c2541;
-    --rota88-navy-border: #334155;
-    --rota88-gold-glow: rgba(245, 158, 11, 0.25);
-}
-
-/* 1. Substituição do Logotipo no Topo */
+/* 1. Logotipo Rota88 no Topo Esquerdo */
 header [role="banner"] a[href="/"] img,
+[role="banner"] a[href="/"] img,
+header a[href="/"] img,
 nav a[href="/"] img,
-a.next-org-button-trigger img,
-img[src*="fleetbase-icon"] {
+img[src*="fleetbase-icon"],
+img[alt="Fleetbase"] {
     content: url('/images/rota88-logo.svg') !important;
-    height: 38px !important;
+    height: 44px !important;
     width: auto !important;
-    max-width: 190px !important;
+    min-width: 180px !important;
+    max-height: 48px !important;
     object-fit: contain !important;
+    display: inline-block !important;
 }
 
-/* 2. Ocultar Atribuições e Menções ao Fleetbase */
+/* 2. Cabeçalho Superior em Azul Noturno com Linha de Destaque Dourada */
+header, 
+[role="banner"] {
+    background-color: #0b132b !important;
+    border-bottom: 2px solid #f59e0b !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    min-height: 56px !important;
+}
+
+/* 3. Textos dos Menus Superiores em BRANCO PURO (Alto Contraste) */
+header [role="menubar"] [role="menuitem"],
+[role="banner"] [role="menubar"] [role="menuitem"],
+header [role="menuitem"],
+[role="banner"] [role="menuitem"],
+header .next-nav-menu-item,
+[role="banner"] .next-nav-menu-item,
+header .menuitem,
+[role="banner"] .menuitem {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease !important;
+    opacity: 0.95 !important;
+}
+
+/* Efeito ao passar o mouse nos itens do menu */
+header [role="menubar"] [role="menuitem"]:hover,
+[role="banner"] [role="menubar"] [role="menuitem"]:hover,
+header [role="menuitem"]:hover,
+[role="banner"] [role="menuitem"]:hover {
+    color: #fbbf24 !important;
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    opacity: 1 !important;
+}
+
+/* Menu Selecionado / Ativo (ex: Lojas & Pedidos, Operações de Entrega) */
+header [role="menubar"] [role="menuitem"].active,
+[role="banner"] [role="menubar"] [role="menuitem"].active,
+header [role="menuitem"].active,
+[role="banner"] [role="menuitem"].active,
+header .active,
+[role="banner"] .active {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+    color: #0b132b !important;
+    font-weight: 800 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4) !important;
+    opacity: 1 !important;
+}
+
+/* 4. Ícones do Topo (Globo, Monitor, Chat, Notificações) em Branco Puro */
+header button,
+[role="banner"] button,
+header a,
+[role="banner"] a,
+header svg,
+[role="banner"] svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+header button:hover,
+[role="banner"] button:hover {
+    color: #fbbf24 !important;
+}
+
+header button:hover svg,
+[role="banner"] button:hover svg {
+    fill: #fbbf24 !important;
+}
+
+/* 5. Destaque para o Usuário e Empresa no Canto Direito */
+header button:has(.text-avatar),
+[role="banner"] button:has(.text-avatar) {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+/* Badge da organização Rota88 */
+header [class*="next-org"],
+[role="banner"] [class*="next-org"] {
+    color: #ffffff !important;
+}
+
+/* 6. Ocultar Totalmente Atribuições Externas e Cards do GitHub */
 a[href*="fleetbase.io"],
 a[href*="github.com/fleetbase"],
 .fleetbase-attribution,
@@ -34,56 +115,20 @@ a[href*="github.com/fleetbase"],
     display: none !important;
 }
 
-/* Ocultar rodapé do menu lateral que exibe versão e links externos */
-nav a[href*="fleetbase.io"],
-nav span:contains("v0.7"),
-aside a[href*="fleetbase.io"] {
-    display: none !important;
-}
-
-/* 3. Personalização das Cores do Cabeçalho e Menus */
-header, [role="banner"] {
-    background-color: #0b132b !important;
-    border-bottom: 2px solid #f59e0b !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Itens ativos do menu superior */
-[role="menubar"] [role="menuitem"].active,
-[role="menubar"] [role="menuitem"]:hover {
-    color: #f59e0b !important;
-    border-bottom-color: #f59e0b !important;
-}
-
-/* Botões primários com a cor Dourada da Rota88 */
+/* 7. Botões de Ação Dourados */
 .btn-primary,
 button.btn-primary,
 .next-btn-primary {
     background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
     border-color: #f59e0b !important;
-    color: #0f172a !important;
+    color: #0b132b !important;
     font-weight: 700 !important;
-    box-shadow: 0 2px 8px var(--rota88-gold-glow) !important;
-    transition: all 0.2s ease-in-out !important;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3) !important;
 }
 
 .btn-primary:hover,
 button.btn-primary:hover,
 .next-btn-primary:hover {
     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
-    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4) !important;
-    transform: translateY(-1px);
-}
-
-/* 4. Estilo dos Cards do Dashboard */
-.next-dashboard-widget-card,
-.bordered-classic,
-.content-panel {
-    border-color: #1e293b !important;
-    border-radius: 12px !important;
-}
-
-/* 5. Favicon e Ícone Geral */
-link[rel="icon"] {
-    content: url('/images/rota88-icon.svg') !important;
+    color: #0b132b !important;
 }

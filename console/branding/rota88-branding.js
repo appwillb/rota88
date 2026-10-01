@@ -32,8 +32,10 @@
         logos.forEach(img => {
             if (img.getAttribute('src') !== '/images/rota88-logo.svg') {
                 img.src = '/images/rota88-logo.svg';
-                img.style.height = '38px';
+                img.style.height = '44px';
                 img.style.width = 'auto';
+                img.style.minWidth = '180px';
+                img.style.display = 'inline-block';
             }
         });
 
