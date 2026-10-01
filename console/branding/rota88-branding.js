@@ -236,16 +236,48 @@
         });
     }
 
+    // 6. Recuperação e Renderização Garantida do Mapa de Rastreio (Leaflet Rescue)
+    function autoFixTrackingMap() {
+        const mapContainer = document.querySelector('.order-tracking-lookup-map-wrapper .leaflet-container');
+        if (!mapContainer || mapContainer.dataset.rota88Fixed) return;
+
+        // Se o mapa estiver cinza ou com Leaflet não inicializado após carregar
+        if (window.L) {
+            try {
+                // Tenta acionar invalidateSize em instâncias Leaflet existentes
+                if (mapContainer._leaflet_id && mapContainer._leaflet_map) {
+                    mapContainer._leaflet_map.invalidateSize();
+                }
+
+                // Se o botão "View Route" existir, garantir clique automático de ajuste quando disponível
+                const routeBtn = document.querySelector('button[title*="View Route"], button[aria-label*="View Route"]');
+                if (routeBtn && !routeBtn.dataset.rota88Autoclicked) {
+                    routeBtn.dataset.rota88Autoclicked = 'true';
+                    setTimeout(() => {
+                        try { routeBtn.click(); } catch(e) {}
+                    }, 1200);
+                }
+            } catch (err) {
+                console.warn('[Rota88] Leaflet map fix:', err);
+            }
+        }
+    }
+
     // Executar imediatamente e acompanhar transições do Ember
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyBranding);
+        document.addEventListener('DOMContentLoaded', () => {
+            applyBranding();
+            autoFixTrackingMap();
+        });
     } else {
         applyBranding();
+        autoFixTrackingMap();
     }
 
     // MutationObserver para Single Page Application (SPA)
     const observer = new MutationObserver(() => {
         applyBranding();
+        autoFixTrackingMap();
     });
 
     observer.observe(document.documentElement, {
@@ -253,5 +285,8 @@
         subtree: true
     });
 
-    setInterval(applyBranding, 1000);
+    setInterval(() => {
+        applyBranding();
+        autoFixTrackingMap();
+    }, 1000);
 })();
