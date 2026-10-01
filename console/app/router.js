@@ -7,6 +7,7 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
+    this.route('track-order');
     this.route('virtual', { path: '/~/:slug' });
     this.route('install');
     this.route('onboard', function () {
