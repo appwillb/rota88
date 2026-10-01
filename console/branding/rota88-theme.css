@@ -12,7 +12,7 @@ a.logo {
     align-items: center !important;
     min-width: 200px !important;
     width: auto !important;
-    margin-right: 20px !important;
+    margin-right: 16px !important;
     flex-shrink: 0 !important;
 }
 
@@ -30,14 +30,66 @@ img[alt="Fleetbase"] {
     display: inline-block !important;
 }
 
-/* Espaçamento do botão sidebar toggle */
-header button:has(#sidebar-toggle-icon),
-[role="banner"] button:has(svg) {
-    margin-right: 12px !important;
-    flex-shrink: 0 !important;
+/* 2. Botão do Menu Lateral (Sidebar Toggle) - Destaque Visual e Alto Contraste */
+.sidebar-toggle-button,
+header button.sidebar-toggle-button,
+[role="banner"] button.sidebar-toggle-button,
+button.next-org-button-trigger:has(#sidebar-toggle-icon) {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 38px !important;
+    width: 38px !important;
+    height: 34px !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    margin-right: 18px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: all 0.2s ease-in-out !important;
+    visibility: visible !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* 2. Cabeçalho Superior em Azul Noturno com Linha de Destaque Dourada */
+.sidebar-toggle-button:hover,
+header button.sidebar-toggle-button:hover,
+[role="banner"] button.sidebar-toggle-button:hover {
+    background: rgba(245, 158, 11, 0.25) !important;
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Ícone SVG do Menu Lateral - Linhas e Preenchimento em Branco e Dourado */
+#sidebar-toggle-icon,
+svg#sidebar-toggle-icon {
+    width: 22px !important;
+    height: 22px !important;
+    display: block !important;
+}
+
+#sidebar-toggle-icon .cls-1,
+#sidebar-toggle-icon .cls-3,
+#sidebar-toggle-icon path,
+#sidebar-toggle-icon rect:not([fill="transparent"]) {
+    fill: #ffffff !important;
+    opacity: 1 !important;
+}
+
+#sidebar-toggle-icon .cls-2,
+#sidebar-toggle-icon line {
+    stroke: #fbbf24 !important;
+    stroke-width: 18px !important;
+    stroke-linecap: round !important;
+}
+
+.sidebar-toggle-button:hover #sidebar-toggle-icon .cls-1,
+.sidebar-toggle-button:hover #sidebar-toggle-icon .cls-3 {
+    fill: #fbbf24 !important;
+}
+
+/* 3. Cabeçalho Superior em Azul Noturno com Linha de Destaque Dourada */
 header, 
 [role="banner"] {
     background-color: #0b132b !important;
@@ -46,7 +98,7 @@ header,
     min-height: 56px !important;
 }
 
-/* 3. Textos dos Menus Superiores em BRANCO PURO (Alto Contraste) */
+/* 4. Textos dos Menus Superiores em BRANCO PURO (Alto Contraste) */
 header [role="menubar"] [role="menuitem"],
 [role="banner"] [role="menubar"] [role="menuitem"],
 header [role="menuitem"],
@@ -74,7 +126,7 @@ header [role="menuitem"]:hover,
     opacity: 1 !important;
 }
 
-/* Menu Selecionado / Ativo (ex: Lojas & Pedidos, Operações de Entrega) */
+/* Menu Selecionado / Ativo */
 header [role="menubar"] [role="menuitem"].active,
 [role="banner"] [role="menubar"] [role="menuitem"].active,
 header [role="menuitem"].active,
@@ -89,13 +141,16 @@ header .active,
     opacity: 1 !important;
 }
 
-/* 4. Ícones do Topo (Globo, Monitor, Chat, Notificações) em Branco Puro */
-header button,
-[role="banner"] button,
+/* 5. Ícones do Topo em Branco Puro */
+header button:not(.sidebar-toggle-button),
+[role="banner"] button:not(.sidebar-toggle-button),
 header a,
-[role="banner"] a,
-header svg,
-[role="banner"] svg {
+[role="banner"] a {
+    color: #ffffff !important;
+}
+
+header button:not(.sidebar-toggle-button) svg,
+[role="banner"] button:not(.sidebar-toggle-button) svg {
     color: #ffffff !important;
     fill: #ffffff !important;
 }
@@ -110,22 +165,35 @@ header button:hover svg,
     fill: #fbbf24 !important;
 }
 
-/* 5. Destaque para o Usuário e Empresa no Canto Direito */
+/* 6. Destaque para Usuário e Organização no Canto Direito */
 header button:has(.text-avatar),
 [role="banner"] button:has(.text-avatar) {
     color: #ffffff !important;
     font-weight: 700 !important;
 }
 
-/* Badge da organização Rota88 */
 header [class*="next-org"],
 [role="banner"] [class*="next-org"] {
     color: #ffffff !important;
 }
 
-/* 6. Ocultar Totalmente Atribuições Externas e Cards do GitHub */
+/* 7. Dropdown de Usuário e Organização - Visual Limpo e Legível */
+[role="menu"],
+.dropdown-menu,
+.next-dropdown-menu,
+.next-user-button-tray,
+.next-org-button-tray {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 8px !important;
+    color: #1e293b !important;
+}
+
+/* 8. Ocultar Atribuições Externas, Discord, Blog e Versão antiga */
 a[href*="fleetbase.io"],
 a[href*="github.com/fleetbase"],
+a[href*="discord.gg"],
 .fleetbase-attribution,
 [data-component="fleetbase-blog"],
 [data-component="github-card"],
@@ -134,7 +202,13 @@ a[href*="github.com/fleetbase"],
     display: none !important;
 }
 
-/* 7. Botões de Ação Dourados */
+/* Ocultar texto de versão Fleetbase */
+.version-tag,
+span:has-text("v0.7.67") {
+    display: none !important;
+}
+
+/* 9. Botões de Ação Primários Dourados */
 .btn-primary,
 button.btn-primary,
 .next-btn-primary {
