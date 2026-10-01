@@ -125,10 +125,30 @@
         }
     }
 
+    // 4.1 Garantir Traduções dos Botões do Topo (Tooltips & Aria-Labels)
+    function setupHeaderButtons() {
+        const moreBtn = document.querySelector('.snm-more-btn');
+        if (moreBtn && moreBtn.getAttribute('title') !== 'Mais extensões') {
+            moreBtn.setAttribute('title', 'Mais extensões');
+            moreBtn.setAttribute('aria-label', 'Mais extensões');
+        }
+        const custBtn = document.querySelector('.snm-customise-btn');
+        if (custBtn && custBtn.getAttribute('title') !== 'Personalizar navegação') {
+            custBtn.setAttribute('title', 'Personalizar navegação');
+            custBtn.setAttribute('aria-label', 'Personalizar navegação');
+        }
+        const chatBtn = document.querySelector('.chat-tray-panel-trigger');
+        if (chatBtn && chatBtn.getAttribute('title') !== 'Mensagens') {
+            chatBtn.setAttribute('title', 'Mensagens');
+            chatBtn.setAttribute('aria-label', 'Mensagens');
+        }
+    }
+
     // 5. Aplicar Traduções e Limpezas Visuais
     function applyBranding() {
         updateTitle();
         setupSidebarButton();
+        setupHeaderButtons();
 
         // Substituir logotipos padrão
         const logos = document.querySelectorAll('img[src*="fleetbase-icon"], img[alt="Fleetbase"]');

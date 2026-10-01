@@ -135,29 +135,90 @@ header [role="menubar"] [role="menuitem"].active,
     opacity: 1 !important;
 }
 
-/* 5. Ícones diretos do Topo em Branco Puro */
-header > div > button,
-header > button:not(.sidebar-toggle-button),
-[role="banner"] > div > button,
-header .next-view-header-item button {
+/* 5. Ícones e Botões do Topo em Branco Puro e Dourado */
+header .snm-more-btn,
+header .snm-customise-btn,
+[role="banner"] .snm-more-btn,
+[role="banner"] .snm-customise-btn {
     color: #ffffff !important;
+    opacity: 0.95 !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease-in-out !important;
 }
 
-header > div > button svg,
-header > button:not(.sidebar-toggle-button) svg,
-[role="banner"] > div > button svg,
-header .next-view-header-item button svg {
+header .snm-more-btn svg,
+header .snm-customise-btn svg,
+[role="banner"] .snm-more-btn svg,
+[role="banner"] .snm-customise-btn svg {
     color: #ffffff !important;
     fill: #ffffff !important;
 }
 
-/* Destaque para Usuário e Organização no Topo */
-header button:has(.text-avatar),
-[role="banner"] button:has(.text-avatar),
-header [class*="next-org"],
-[role="banner"] [class*="next-org"] {
+header .snm-more-btn:hover,
+header .snm-customise-btn:hover,
+[role="banner"] .snm-more-btn:hover,
+[role="banner"] .snm-customise-btn:hover {
+    background-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+header .snm-more-btn:hover svg,
+header .snm-customise-btn:hover svg,
+[role="banner"] .snm-more-btn:hover svg,
+[role="banner"] .snm-customise-btn:hover svg {
+    color: #fbbf24 !important;
+    fill: #fbbf24 !important;
+}
+
+/* Nome da Organização e Usuário no Topo em BRANCO PURO */
+header .next-org-button-trigger,
+header .next-org-button-trigger .truncate,
+header .next-org-button-trigger [class*="text-gray"],
+header .next-user-button-trigger,
+header .next-header-menu-item-dd-trigger .truncate,
+[role="banner"] .next-org-button-trigger,
+[role="banner"] .next-org-button-trigger .truncate,
+[role="banner"] .next-org-button-trigger [class*="text-gray"],
+[role="banner"] .next-user-button-trigger,
+[role="banner"] .next-header-menu-item-dd-trigger .truncate {
     color: #ffffff !important;
     font-weight: 700 !important;
+}
+
+/* Badge 'r' com texto escuro sobre fundo dourado */
+header .next-org-button-trigger .org-badge,
+[role="banner"] .next-org-button-trigger .org-badge {
+    background-color: #f59e0b !important;
+    color: #0b132b !important;
+    font-weight: 800 !important;
+    border-radius: 4px !important;
+}
+
+/* Avatar do Usuário com anel dourado sutil */
+header .next-user-button-trigger img,
+[role="banner"] .next-user-button-trigger img {
+    border: 1.8px solid #f59e0b !important;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.5) !important;
+}
+
+/* Triggers de Notificações, Globo e Chat */
+header .local-selector-tray-trigger svg,
+header .chat-tray-panel-trigger svg,
+[role="banner"] .local-selector-tray-trigger svg,
+[role="banner"] .chat-tray-panel-trigger svg {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+    opacity: 0.95 !important;
+    transition: all 0.2s ease !important;
+}
+
+header .local-selector-tray-trigger:hover svg,
+header .chat-tray-panel-trigger:hover svg,
+[role="banner"] .local-selector-tray-trigger:hover svg,
+[role="banner"] .chat-tray-panel-trigger:hover svg {
+    color: #fbbf24 !important;
+    fill: #fbbf24 !important;
+    opacity: 1 !important;
 }
 
 /* ==========================================================================
