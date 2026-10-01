@@ -3,19 +3,38 @@
    ========================================================================== */
 
 /* 1. Logotipo Rota88 no Topo Esquerdo */
-header [role="banner"] a[href="/"] img,
-[role="banner"] a[href="/"] img,
+header a[href="/"],
+[role="banner"] a[href="/"],
+nav a[href="/"],
+a.navbar-logo,
+a.logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-width: 200px !important;
+    width: auto !important;
+    margin-right: 20px !important;
+    flex-shrink: 0 !important;
+}
+
 header a[href="/"] img,
+[role="banner"] a[href="/"] img,
 nav a[href="/"] img,
 img[src*="fleetbase-icon"],
 img[alt="Fleetbase"] {
     content: url('/images/rota88-logo.svg') !important;
-    height: 44px !important;
-    width: auto !important;
-    min-width: 180px !important;
-    max-height: 48px !important;
+    height: 40px !important;
+    width: 190px !important;
+    min-width: 190px !important;
+    max-height: 44px !important;
     object-fit: contain !important;
     display: inline-block !important;
+}
+
+/* Espaçamento do botão sidebar toggle */
+header button:has(#sidebar-toggle-icon),
+[role="banner"] button:has(svg) {
+    margin-right: 12px !important;
+    flex-shrink: 0 !important;
 }
 
 /* 2. Cabeçalho Superior em Azul Noturno com Linha de Destaque Dourada */
