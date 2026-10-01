@@ -1,0 +1,89 @@
+/* ==========================================================================
+   ROTA 88 - TEMA PERSONALIZADO & WHITE-LABEL (PRODUÇÃO)
+   ========================================================================== */
+
+:root {
+    --rota88-primary: #f59e0b;
+    --rota88-primary-hover: #d97706;
+    --rota88-bg-dark: #0b132b;
+    --rota88-navy-card: #1c2541;
+    --rota88-navy-border: #334155;
+    --rota88-gold-glow: rgba(245, 158, 11, 0.25);
+}
+
+/* 1. Substituição do Logotipo no Topo */
+header [role="banner"] a[href="/"] img,
+nav a[href="/"] img,
+a.next-org-button-trigger img,
+img[src*="fleetbase-icon"] {
+    content: url('/images/rota88-logo.svg') !important;
+    height: 38px !important;
+    width: auto !important;
+    max-width: 190px !important;
+    object-fit: contain !important;
+}
+
+/* 2. Ocultar Atribuições e Menções ao Fleetbase */
+a[href*="fleetbase.io"],
+a[href*="github.com/fleetbase"],
+.fleetbase-attribution,
+[data-component="fleetbase-blog"],
+[data-component="github-card"],
+.grid-stack-item:has(a[href*="github.com/fleetbase"]),
+.grid-stack-item:has(a[href*="fleetbase.io/blog"]) {
+    display: none !important;
+}
+
+/* Ocultar rodapé do menu lateral que exibe versão e links externos */
+nav a[href*="fleetbase.io"],
+nav span:contains("v0.7"),
+aside a[href*="fleetbase.io"] {
+    display: none !important;
+}
+
+/* 3. Personalização das Cores do Cabeçalho e Menus */
+header, [role="banner"] {
+    background-color: #0b132b !important;
+    border-bottom: 2px solid #f59e0b !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Itens ativos do menu superior */
+[role="menubar"] [role="menuitem"].active,
+[role="menubar"] [role="menuitem"]:hover {
+    color: #f59e0b !important;
+    border-bottom-color: #f59e0b !important;
+}
+
+/* Botões primários com a cor Dourada da Rota88 */
+.btn-primary,
+button.btn-primary,
+.next-btn-primary {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+    border-color: #f59e0b !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px var(--rota88-gold-glow) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.btn-primary:hover,
+button.btn-primary:hover,
+.next-btn-primary:hover {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4) !important;
+    transform: translateY(-1px);
+}
+
+/* 4. Estilo dos Cards do Dashboard */
+.next-dashboard-widget-card,
+.bordered-classic,
+.content-panel {
+    border-color: #1e293b !important;
+    border-radius: 12px !important;
+}
+
+/* 5. Favicon e Ícone Geral */
+link[rel="icon"] {
+    content: url('/images/rota88-icon.svg') !important;
+}

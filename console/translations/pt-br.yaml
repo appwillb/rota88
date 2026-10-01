@@ -1,5 +1,5 @@
 app:
-  name: Fleetbase
+  name: Rota88
 common:
   new: Novo
   create: Criar
@@ -40,6 +40,7 @@ common:
   select: Selecionar
   deselect: Desmarcar
   search: Pesquisar
+  search-input: Pesquisar...
   filter: Filtrar
   sort: Ordenar
   view-all: Ver Todos
@@ -578,7 +579,7 @@ auth:
       divider: 'Ou continuar com'
       continue-with: 'Continuar com {provider}'
       signing-in: 'Entrando...'
-      finish-signup: 'Conclua a configuração da sua conta Fleetbase para continuar.'
+      finish-signup: 'Conclua a configuração da sua conta Rota88 para continuar.'
       connected-accounts: 'Contas conectadas'
       connected-accounts-help: 'Entre com um provedor em vez de uma senha. Você pode conectar mais de um.'
       linked-heading: 'Conectadas'
@@ -606,7 +607,7 @@ auth:
         not-verified: 'Sua conta precisa ser verificada para continuar.'
         rate-limited: 'Muitas tentativas. Tente novamente em breve.'
         already-linked: 'Esse provedor já está conectado à sua conta.'
-        identity-already-linked: 'Essa conta já está conectada a outro usuário do Fleetbase.'
+        identity-already-linked: 'Essa conta já está conectada a outro usuário da Rota88.'
         last-credential: 'Defina uma senha ou conecte outro provedor primeiro, ou você não conseguirá entrar.'
         link-failed: 'Não foi possível conectar esse provedor. Tente novamente.'
     slow-connection-message: Problemas de conexão detectados.
@@ -627,16 +628,16 @@ auth:
       submit-button: Redefinir senha
       back-button: Voltar
   confirm-email-change:
-    success-message: Your email address has been updated.
-    invalid-verification-code: This email change link is invalid or expired.
-    title: Confirm email change
-    message-text: Confirm this change to update the login email for your Fleetbase account.
+    success-message: Seu endereço de e-mail foi atualizado.
+    invalid-verification-code: Este link de confirmação de e-mail é inválido ou expirou.
+    title: Confirmar alteração de e-mail
+    message-text: Confirme esta alteração para atualizar o e-mail de acesso da sua conta Rota88.
     form:
       code:
-        label: Confirmation code
-        help-text: The confirmation code from your email.
-      submit-button: Confirm Email Change
-      back-button: Back
+        label: Código de confirmação
+        help-text: O código de confirmação recebido no seu e-mail.
+      submit-button: Confirmar alteração de e-mail
+      back-button: Voltar
 
 console:
   create-or-join-organization:
@@ -797,11 +798,11 @@ onboard:
       resend-email: Reenviar E-mail
       send-by-sms: Enviar por SMS
 install:
-  not-configured-title: Fleetbase is not installed or configured
-  not-configured-message: Complete setup from the Fleetbase CLI or application container, then reload this page once the database, migrations, and seed data are ready.
-  running-locally-docs: See running locally docs
-  cloud-docs: See cloud deployment docs
-  refreshing: Installation complete, refreshing...
+  not-configured-title: Rota88 está inicializando
+  not-configured-message: Aguarde enquanto os serviços e o banco de dados da Rota88 são carregados.
+  running-locally-docs: Ver documentação
+  cloud-docs: Ver documentação na nuvem
+  refreshing: Inicialização concluída, atualizando...
 layout:
   header:
     menus:
