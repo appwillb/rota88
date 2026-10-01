@@ -10,9 +10,9 @@ a.navbar-logo,
 a.logo {
     display: inline-flex !important;
     align-items: center !important;
-    min-width: 200px !important;
-    width: auto !important;
-    margin-right: 16px !important;
+    min-width: 170px !important;
+    width: 170px !important;
+    margin-right: 10px !important;
     flex-shrink: 0 !important;
 }
 
@@ -22,15 +22,15 @@ nav a[href="/"] img,
 img[src*="fleetbase-icon"],
 img[alt="Fleetbase"] {
     content: url('/images/rota88-logo.svg') !important;
-    height: 40px !important;
-    width: 190px !important;
-    min-width: 190px !important;
-    max-height: 44px !important;
+    height: 38px !important;
+    width: 170px !important;
+    min-width: 170px !important;
+    max-height: 42px !important;
     object-fit: contain !important;
     display: inline-block !important;
 }
 
-/* 2. Botão do Menu Lateral (Sidebar Toggle) - Destaque Visual e Alto Contraste */
+/* 2. Botão do Menu Lateral (Sidebar Toggle) - Destaque Visual Dourado e Alto Contraste */
 .sidebar-toggle-button,
 header button.sidebar-toggle-button,
 [role="banner"] button.sidebar-toggle-button,
@@ -41,24 +41,24 @@ button.next-org-button-trigger:has(#sidebar-toggle-icon) {
     min-width: 38px !important;
     width: 38px !important;
     height: 34px !important;
-    background: rgba(255, 255, 255, 0.12) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    background: rgba(245, 158, 11, 0.15) !important;
+    border: 1.5px solid #f59e0b !important;
     border-radius: 6px !important;
     cursor: pointer !important;
-    margin-right: 18px !important;
+    margin-right: 14px !important;
     opacity: 1 !important;
     pointer-events: auto !important;
     transition: all 0.2s ease-in-out !important;
     visibility: visible !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3) !important;
 }
 
 .sidebar-toggle-button:hover,
 header button.sidebar-toggle-button:hover,
 [role="banner"] button.sidebar-toggle-button:hover {
-    background: rgba(245, 158, 11, 0.25) !important;
-    border-color: #f59e0b !important;
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4) !important;
+    background: rgba(245, 158, 11, 0.35) !important;
+    border-color: #fbbf24 !important;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.6) !important;
 }
 
 /* Ícone SVG do Menu Lateral - Linhas e Preenchimento em Branco e Dourado */
@@ -80,7 +80,7 @@ svg#sidebar-toggle-icon {
 #sidebar-toggle-icon .cls-2,
 #sidebar-toggle-icon line {
     stroke: #fbbf24 !important;
-    stroke-width: 18px !important;
+    stroke-width: 20px !important;
     stroke-linecap: round !important;
 }
 
@@ -98,29 +98,27 @@ header,
     min-height: 56px !important;
 }
 
-/* 4. Textos dos Menus Superiores em BRANCO PURO (Alto Contraste) */
+/* 4. Textos dos Menus Superiores em BRANCO PURO (Sem cortes/reticências) */
 header [role="menubar"] [role="menuitem"],
 [role="banner"] [role="menubar"] [role="menuitem"],
-header [role="menuitem"],
-[role="banner"] [role="menuitem"],
 header .next-nav-menu-item,
-[role="banner"] .next-nav-menu-item,
-header .menuitem,
-[role="banner"] .menuitem {
+[role="banner"] .next-nav-menu-item {
     color: #ffffff !important;
     font-weight: 600 !important;
-    font-size: 14px !important;
-    padding: 6px 12px !important;
+    font-size: 13px !important;
+    padding: 6px 10px !important;
     border-radius: 6px !important;
     transition: all 0.2s ease !important;
     opacity: 0.95 !important;
+    white-space: nowrap !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
+    max-width: none !important;
 }
 
 /* Efeito ao passar o mouse nos itens do menu */
 header [role="menubar"] [role="menuitem"]:hover,
-[role="banner"] [role="menubar"] [role="menuitem"]:hover,
-header [role="menuitem"]:hover,
-[role="banner"] [role="menuitem"]:hover {
+[role="banner"] [role="menubar"] [role="menuitem"]:hover {
     color: #fbbf24 !important;
     background-color: rgba(245, 158, 11, 0.15) !important;
     opacity: 1 !important;
@@ -128,11 +126,7 @@ header [role="menuitem"]:hover,
 
 /* Menu Selecionado / Ativo */
 header [role="menubar"] [role="menuitem"].active,
-[role="banner"] [role="menubar"] [role="menuitem"].active,
-header [role="menuitem"].active,
-[role="banner"] [role="menuitem"].active,
-header .active,
-[role="banner"] .active {
+[role="banner"] [role="menubar"] [role="menuitem"].active {
     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
     color: #0b132b !important;
     font-weight: 800 !important;
@@ -141,56 +135,111 @@ header .active,
     opacity: 1 !important;
 }
 
-/* 5. Ícones do Topo em Branco Puro */
-header button:not(.sidebar-toggle-button),
-[role="banner"] button:not(.sidebar-toggle-button),
-header a,
-[role="banner"] a {
+/* 5. Ícones diretos do Topo em Branco Puro */
+header > div > button,
+header > button:not(.sidebar-toggle-button),
+[role="banner"] > div > button,
+header .next-view-header-item button {
     color: #ffffff !important;
 }
 
-header button:not(.sidebar-toggle-button) svg,
-[role="banner"] button:not(.sidebar-toggle-button) svg {
+header > div > button svg,
+header > button:not(.sidebar-toggle-button) svg,
+[role="banner"] > div > button svg,
+header .next-view-header-item button svg {
     color: #ffffff !important;
     fill: #ffffff !important;
 }
 
-header button:hover,
-[role="banner"] button:hover {
-    color: #fbbf24 !important;
-}
-
-header button:hover svg,
-[role="banner"] button:hover svg {
-    fill: #fbbf24 !important;
-}
-
-/* 6. Destaque para Usuário e Organização no Canto Direito */
+/* Destaque para Usuário e Organização no Topo */
 header button:has(.text-avatar),
-[role="banner"] button:has(.text-avatar) {
+[role="banner"] button:has(.text-avatar),
+header [class*="next-org"],
+[role="banner"] [class*="next-org"] {
     color: #ffffff !important;
     font-weight: 700 !important;
 }
 
-header [class*="next-org"],
-[role="banner"] [class*="next-org"] {
-    color: #ffffff !important;
-}
-
-/* 7. Dropdown de Usuário e Organização - Visual Limpo e Legível */
+/* ==========================================================================
+   6. DROPDOWNS E MENUS FLUTUANTES (ALTO CONTRASTE - TEXTO ESCURO NO BRANCO)
+   ========================================================================== */
 [role="menu"],
 .dropdown-menu,
 .next-dropdown-menu,
 .next-user-button-tray,
-.next-org-button-tray {
+.next-org-button-tray,
+.next-dd-menu {
     background-color: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
     border-radius: 8px !important;
-    color: #1e293b !important;
+    padding: 6px !important;
 }
 
-/* 8. Ocultar Atribuições Externas, Discord, Blog e Versão antiga */
+/* TEXTOS DENTRO DO DROPDOWN: DEVEM SER ESCUROS PARA TOTAL VISIBILIDADE */
+.dropdown-menu a,
+.next-dropdown-menu a,
+.next-user-button-tray a,
+.next-org-button-tray a,
+.next-header-dd-menu-item,
+.next-dd-item,
+[role="menu"] a,
+[role="menu"] button,
+[role="menu"] span:not(.badge),
+[role="menuitem"]:not(header [role="menubar"] [role="menuitem"]) {
+    color: #0f172a !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Ícones dentro do Dropdown */
+.dropdown-menu svg,
+.next-dropdown-menu svg,
+.next-user-button-tray svg,
+.next-org-button-tray svg,
+.next-header-dd-menu-item:not(.active) svg,
+[role="menu"] svg {
+    color: #475569 !important;
+    fill: #475569 !important;
+    margin-right: 8px !important;
+}
+
+/* Hover nos itens do Dropdown */
+.next-header-dd-menu-item:hover,
+.next-dd-item:hover,
+[role="menu"] a:hover,
+[role="menu"] button:hover {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-radius: 6px !important;
+}
+
+.next-header-dd-menu-item:hover svg,
+[role="menu"] a:hover svg {
+    color: #d97706 !important;
+    fill: #d97706 !important;
+}
+
+/* Item ativo no Dropdown (ex: Início) */
+.next-header-dd-menu-item.active,
+[role="menu"] a.active {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+    color: #0b132b !important;
+    font-weight: 700 !important;
+    border-radius: 6px !important;
+}
+
+.next-header-dd-menu-item.active svg,
+[role="menu"] a.active svg {
+    color: #0b132b !important;
+    fill: #0b132b !important;
+}
+
+/* ==========================================================================
+   7. OCULTAR ELEMENTOS INDESEJADOS
+   ========================================================================== */
 a[href*="fleetbase.io"],
 a[href*="github.com/fleetbase"],
 a[href*="discord.gg"],
@@ -198,17 +247,12 @@ a[href*="discord.gg"],
 [data-component="fleetbase-blog"],
 [data-component="github-card"],
 .grid-stack-item:has(a[href*="github.com/fleetbase"]),
-.grid-stack-item:has(a[href*="fleetbase.io/blog"]) {
+.grid-stack-item:has(a[href*="fleetbase.io/blog"]),
+.version-tag {
     display: none !important;
 }
 
-/* Ocultar texto de versão Fleetbase */
-.version-tag,
-span:has-text("v0.7.67") {
-    display: none !important;
-}
-
-/* 9. Botões de Ação Primários Dourados */
+/* 8. Botões de Ação Primários Dourados */
 .btn-primary,
 button.btn-primary,
 .next-btn-primary {

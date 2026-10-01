@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    // 1. Forçar o idioma padrão para Português do Brasil (pt-BR)
+    // 1. Forçar o idioma padrão para Português do Brasil (pt-BR) no LocalStorage
     try {
         const storageKey = '@fleetbase/storage:user-options';
         const raw = localStorage.getItem(storageKey);
@@ -23,67 +23,83 @@
         }
     }
 
-    // 3. Dicionário Completo de Tradução para Interface (pt-BR)
+    // 3. Dicionário Completo de Tradução (Chaves normalizadas em minúsculas)
     const DICTIONARY = {
         // Dropdown de Usuário e Organizações
-        'Home': 'Início',
-        'Create or join organizations': 'Gerenciar Organizações',
-        'Administrator': 'Administrador',
-        'View Profile': 'Meu Perfil',
-        'Show keyboard shortcuts': 'Atalhos do Teclado',
-        'Changelog': 'Novidades',
-        'Developers': 'Integrações & API',
-        'Help & Support': 'Ajuda & Suporte',
-        'Terms of Service': 'Termos de Uso',
-        'Privacy Policy': 'Política de Privacidade',
-        'Logout': 'Sair',
-        'Sign out': 'Sair',
+        'home': 'Início',
+        'organization settings': 'Configurações da Empresa',
+        'create or join organizations': 'Gerenciar Organizações',
+        'explore extensions': 'Explorar Módulos',
+        'admin': 'Administração',
+        'administrator': 'Administrador',
+        'view profile': 'Meu Perfil',
+        'show keyboard shortcuts': 'Atalhos do Teclado',
+        'changelog': 'Novidades',
+        'developers': 'Integrações & API',
+        'help & support': 'Ajuda & Suporte',
+        'terms of service': 'Termos de Uso',
+        'privacy policy': 'Política de Privacidade',
+        'logout': 'Sair',
+        'sign out': 'Sair',
 
         // Cards e Widgets do Dashboard
-        'RADAR': 'RADAR',
-        'Open Radar': 'Abrir Radar',
+        'radar': 'RADAR',
+        'open radar': 'Abrir Radar',
         'open': 'abertos',
         'snoozed': 'adiados',
-        'REVENUE': 'RECEITA TOTAL',
+        'revenue': 'RECEITA TOTAL',
         'vs previous period': 'vs período anterior',
-        'Current': 'Atual',
-        'ACTIVE ORDERS': 'PEDIDOS ATIVOS',
-        'DRIVERS ONLINE': 'MOTORISTAS ONLINE',
-        'EXPENSES': 'DESPESAS',
-        'NET INCOME': 'LUCRO LÍQUIDO',
-        'OUTSTANDING AR': 'CONTAS A RECEBER',
-        'OVERDUE AR': 'CONTAS VENCIDAS',
-        'Live Fleet Map': 'Mapa da Frota em Tempo Real',
-        'No active drivers or vehicles to display.': 'Nenhum motorista ou veículo ativo no momento.',
-        'Revenue Trend': 'Tendência de Faturamento',
-        'Top Drivers': 'Melhores Motoristas',
-        'Orders': 'Pedidos',
-        'On-time': 'Pontualidade',
-        'Distance': 'Distância',
-        'No driver activity in this period.': 'Nenhuma atividade de motorista neste período.',
-        'Maintenance Overview': 'Visão de Manutenção',
-        'OVERDUE': 'VENCIDO',
-        'NEXT 7D': 'PRÓXIMOS 7 DIAS',
-        'MTD': 'NO MÊS',
-        'No upcoming maintenance.': 'Nenhuma manutenção pendente.',
-        'Recent Financial Activity': 'Atividades Financeiras Recentes',
-        'Latest journal entries posted to the ledger': 'Últimos lançamentos no livro-razão',
-        'No recent journal entries.': 'Nenhum lançamento recente.',
-        'Cash Flow Summary': 'Resumo do Fluxo de Caixa',
+        'current': 'Atual',
+        'active orders': 'PEDIDOS ATIVOS',
+        'drivers online': 'MOTORISTAS ONLINE',
+        'expenses': 'DESPESAS',
+        'net income': 'LUCRO LÍQUIDO',
+        'outstanding ar': 'A RECEBER',
+        'overdue ar': 'CONTAS VENCIDAS',
+        'overdue': 'VENCIDO',
+        'next 7d': 'PRÓX. 7 DIAS',
+        'mtd': 'NO MÊS',
+        'live fleet map': 'Mapa da Frota em Tempo Real',
+        'no active drivers or vehicles to display.': 'Nenhum motorista ou veículo ativo no momento.',
+        'revenue trend': 'Tendência de Faturamento',
+        'top drivers': 'Melhores Motoristas',
+        'orders': 'Pedidos',
+        'on-time': 'Pontualidade',
+        'distance': 'Distância',
+        'no driver activity in this period.': 'Nenhuma atividade de motorista neste período.',
+        'maintenance overview': 'Visão de Manutenção',
+        'no upcoming maintenance.': 'Nenhuma manutenção pendente.',
+        'recent financial activity': 'Atividades Financeiras Recentes',
+        'latest journal entries posted to the ledger': 'Últimos lançamentos no livro-razão',
+        'no recent journal entries.': 'Nenhum lançamento recente.',
+        'cash flow summary': 'Resumo do Fluxo de Caixa',
         'net cash change': 'variação de caixa',
 
         // Menus e Navegação
-        'Default Dashboard': 'Painel de Controle',
-        'Search navigation': 'Buscar no menu...',
-        'More extensions': 'Mais Módulos',
-        'Customise navigation': 'Personalizar Menu',
-        'Open chat inbox': 'Mensagens',
-        'Legal': 'Termos Legais',
-        'Starting up...': 'Carregando...',
-        'Fleet-Ops': 'Operações de Entrega',
-        'Storefront': 'Lojas & Pedidos',
-        'IAM': 'Acessos & Usuários',
-        'Ledger': 'Financeiro'
+        'default dashboard': 'Painel de Controle',
+        'search navigation': 'Buscar no menu...',
+        'more extensions': 'Mais Módulos',
+        'customise navigation': 'Personalizar Menu',
+        'open chat inbox': 'Mensagens',
+        'legal': 'Termos Legais',
+        'starting up...': 'Carregando...',
+        'fleet-ops': 'Operações de Entrega',
+        'storefront': 'Lojas & Pedidos',
+        'iam': 'Acessos & Usuários',
+        'ledger': 'Financeiro',
+
+        // Fleet-Ops e Recursos
+        'create fleet': 'Criar Frota',
+        'filter resources...': 'Filtrar recursos...',
+        'vehicles': 'Veículos',
+        'drivers': 'Motoristas',
+        'fleets': 'Frotas',
+        'places': 'Locais',
+        'positions': 'Posições',
+        'geofences': 'Cercas Virtuais',
+        'events': 'Eventos',
+        'no vehicles visible': 'Nenhum veículo visível',
+        'vehicles appear here when they are available in the live map context.': 'Os veículos aparecerão aqui quando estiverem disponíveis no mapa.'
     };
 
     // 4. Garantir Visibilidade e Funcionamento do Botão de Menu Lateral
@@ -119,9 +135,9 @@
         logos.forEach(img => {
             if (img.getAttribute('src') !== '/images/rota88-logo.svg') {
                 img.src = '/images/rota88-logo.svg';
-                img.style.height = '40px';
-                img.style.width = '190px';
-                img.style.minWidth = '190px';
+                img.style.height = '38px';
+                img.style.width = '170px';
+                img.style.minWidth = '170px';
                 img.style.display = 'inline-block';
             }
         });
@@ -143,7 +159,7 @@
             }
         });
 
-        // Substituição de textos com base no dicionário
+        // Substituição case-insensitive de nós de texto
         const walker = document.createTreeWalker(
             document.body,
             NodeFilter.SHOW_TEXT,
@@ -153,8 +169,8 @@
                     if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'SVG' || tag === 'PATH') {
                         return NodeFilter.FILTER_REJECT;
                     }
-                    const trimmed = node.nodeValue.trim();
-                    if (DICTIONARY[trimmed]) {
+                    const cleanKey = node.nodeValue.replace(/\s+/g, ' ').trim().toLowerCase();
+                    if (DICTIONARY[cleanKey]) {
                         return NodeFilter.FILTER_ACCEPT;
                     }
                     return NodeFilter.FILTER_SKIP;
@@ -164,13 +180,36 @@
 
         let node;
         while ((node = walker.nextNode())) {
-            const trimmed = node.nodeValue.trim();
-            if (DICTIONARY[trimmed]) {
-                node.nodeValue = DICTIONARY[trimmed];
+            const cleanKey = node.nodeValue.replace(/\s+/g, ' ').trim().toLowerCase();
+            if (DICTIONARY[cleanKey]) {
+                node.nodeValue = DICTIONARY[cleanKey];
             }
         }
 
-        // Corrigir inputs e placeholders
+        // Substituição direta em elementos folha com texto
+        const elementsToCheck = document.querySelectorAll('.next-header-dd-menu-item, .next-dd-item, [role="menuitem"], .kpi-title, h1, h2, h3, h4');
+        elementsToCheck.forEach(el => {
+            if (el.children.length <= 1) {
+                const textOnly = Array.from(el.childNodes)
+                    .filter(n => n.nodeType === Node.TEXT_NODE)
+                    .map(n => n.nodeValue)
+                    .join(' ')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                    .toLowerCase();
+
+                if (DICTIONARY[textOnly]) {
+                    // Encontrar e atualizar o nó de texto específico sem matar ícones svg
+                    Array.from(el.childNodes).forEach(n => {
+                        if (n.nodeType === Node.TEXT_NODE && n.nodeValue.trim().length > 0) {
+                            n.nodeValue = DICTIONARY[textOnly];
+                        }
+                    });
+                }
+            }
+        });
+
+        // Corrigir placeholders
         const searchInputs = document.querySelectorAll('input[placeholder*="Missing translation"], input[placeholder*="search-input"], input[placeholder*="Search"]');
         searchInputs.forEach(input => {
             input.placeholder = 'Pesquisar...';
