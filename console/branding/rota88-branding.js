@@ -237,29 +237,103 @@
     }
 
     // 6. Recuperação e Renderização Garantida do Mapa de Rastreio (Leaflet Rescue)
-    function autoFixTrackingMap() {
-        const mapContainer = document.querySelector('.order-tracking-lookup-map-wrapper .leaflet-container');
-        if (!mapContainer || mapContainer.dataset.rota88Fixed) return;
+    // 6. Recuperação e Renderização Garantida do Mapa de Rastreio (Leaflet Rescue)
+    async function autoFixTrackingMap() {
+        const wrapper = document.querySelector('.order-tracking-lookup-map-wrapper');
+        if (!wrapper) return;
 
-        // Se o mapa estiver cinza ou com Leaflet não inicializado após carregar
-        if (window.L) {
+        // Se já inicializamos o mapa independente do Rota88 neste container, não refazer
+        if (wrapper.dataset.rota88MapActive) return;
+
+        // Verifica se a tela é de rastreamento de pedido
+        const params = new URLSearchParams(window.location.search);
+        const trackingCode = params.get('order') || (window.location.pathname.match(/track-order\/([^\/?#]+)/)?.[1]);
+        if (!trackingCode) return;
+
+        // Aguarda a biblioteca Leaflet global (L) estar presente
+        if (!window.L) return;
+
+        wrapper.dataset.rota88MapActive = 'true';
+        console.log('[Rota88] Iniciando renderizador garantido de rota para:', trackingCode);
+
+        try {
+            // Busca dados do pedido diretamente no backend
+            const res = await fetch(`/int/v1/fleet-ops/lookup?tracking=${encodeURIComponent(trackingCode)}`, {
+                headers: { 'Accept': 'application/json' }
+            });
+            if (!res.ok) return;
+            const data = await res.json();
+            const payload = data.payload;
+            if (!payload || !payload.pickup || !payload.dropoff) return;
+
+            const pLat = Number(payload.pickup.location?.coordinates?.[1] || payload.pickup.latitude);
+            const pLng = Number(payload.pickup.location?.coordinates?.[0] || payload.pickup.longitude);
+            const dLat = Number(payload.dropoff.location?.coordinates?.[1] || payload.dropoff.latitude);
+            const dLng = Number(payload.dropoff.location?.coordinates?.[0] || payload.dropoff.longitude);
+
+            if (!pLat || !pLng || !dLat || !dLng) return;
+
+            // Limpa qualquer container quebrado anterior
+            wrapper.innerHTML = '<div id="rota88-real-map" style="width: 100%; height: 350px; border-radius: 8px; z-index: 1;"></div>';
+
+            const map = L.map('rota88-real-map', { zoomControl: true });
+
+            // Camada de mapa OpenStreetMap em HTTPS
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Marcador da Farmácia (Pickup)
+            const pickupIcon = L.divIcon({
+                className: 'r88-pickup-pin',
+                html: '<div style="background:#10b981;color:white;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid white;">🏪</div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+            const pickupMarker = L.marker([pLat, pLng], { icon: pickupIcon }).addTo(map);
+            pickupMarker.bindPopup(`<b>Coleta: ${payload.pickup.name || 'Farmácia'}</b><br>${payload.pickup.street1 || ''}`);
+
+            // Marcador do Cliente (Dropoff)
+            const dropoffIcon = L.divIcon({
+                className: 'r88-dropoff-pin',
+                html: '<div style="background:#ef4444;color:white;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border:2px solid white;">📍</div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
+            });
+            const dropoffMarker = L.marker([dLat, dLng], { icon: dropoffIcon }).addTo(map);
+            dropoffMarker.bindPopup(`<b>Entrega: ${payload.dropoff.name || 'Cliente'}</b><br>${payload.dropoff.street1 || ''}`);
+
+            // Enquadra a visão entre a farmácia e o cliente
+            const bounds = L.latLngBounds([[pLat, pLng], [dLat, dLng]]);
+            map.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+
+            // Traça a rota real de ruas via OSRM
             try {
-                // Tenta acionar invalidateSize em instâncias Leaflet existentes
-                if (mapContainer._leaflet_id && mapContainer._leaflet_map) {
-                    mapContainer._leaflet_map.invalidateSize();
+                const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${pLng},${pLat};${dLng},${dLat}?overview=full&geometries=geojson`;
+                const osrmRes = await fetch(osrmUrl);
+                if (osrmRes.ok) {
+                    const routeData = await osrmRes.json();
+                    if (routeData.routes && routeData.routes.length > 0) {
+                        const coords = routeData.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                        L.polyline(coords, {
+                            color: '#3b82f6',
+                            weight: 5,
+                            opacity: 0.85,
+                            lineJoin: 'round'
+                        }).addTo(map);
+                        map.fitBounds(L.polyline(coords).getBounds(), { padding: [40, 40] });
+                    }
                 }
-
-                // Se o botão "View Route" existir, garantir clique automático de ajuste quando disponível
-                const routeBtn = document.querySelector('button[title*="View Route"], button[aria-label*="View Route"]');
-                if (routeBtn && !routeBtn.dataset.rota88Autoclicked) {
-                    routeBtn.dataset.rota88Autoclicked = 'true';
-                    setTimeout(() => {
-                        try { routeBtn.click(); } catch(e) {}
-                    }, 1200);
-                }
-            } catch (err) {
-                console.warn('[Rota88] Leaflet map fix:', err);
+            } catch (rErr) {
+                // Fallback linha direta
+                L.polyline([[pLat, pLng], [dLat, dLng]], { color: '#3b82f6', weight: 4, dashArray: '6, 8' }).addTo(map);
             }
+
+            setTimeout(() => { map.invalidateSize(); }, 300);
+            console.log('[Rota88] ✅ Mapa e rota renderizados com sucesso absoluto!');
+        } catch (err) {
+            console.error('[Rota88] Erro ao renderizar rota garantida:', err);
         }
     }
 
