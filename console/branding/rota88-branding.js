@@ -423,10 +423,30 @@
 
         let node;
         while ((node = walker.nextNode())) {
-            const cleanKey = node.nodeValue.replace(/\s+/g, ' ').trim().toLowerCase();
+            let val = node.nodeValue;
+            const cleanKey = val.replace(/\s+/g, ' ').trim().toLowerCase();
             if (DICTIONARY[cleanKey]) {
                 node.nodeValue = DICTIONARY[cleanKey];
+            } else if (val.includes('$')) {
+                // Substituir cifrão de dólar ($) por Real Brasileiro (R$)
+                node.nodeValue = val.replace(/\$([0-9.,]+)/g, 'R$ $1').replace(/^\$\s*/, 'R$ ');
             }
+        }
+
+        // 5.1 Recentralizar automaticamente o "Mapa da Frota em Tempo Real" do Dashboard para Trindade/Goiás
+        try {
+            const dashboardMap = document.querySelector('.live-map-container .leaflet-container, .dashboard-widget-content .leaflet-container');
+            if (dashboardMap && !dashboardMap.dataset.rota88Centered && window.L) {
+                // Se a instância Leaflet estiver disponível
+                const mapInstance = dashboardMap._leaflet_map || (dashboardMap._leaflet_id && window.L.map?.instances?.[dashboardMap._leaflet_id]);
+                if (mapInstance && typeof mapInstance.setView === 'function') {
+                    // Centro de Trindade / Goiânia - GO
+                    mapInstance.setView([-16.6545, -49.4876], 13);
+                    dashboardMap.dataset.rota88Centered = 'true';
+                }
+            }
+        } catch (e) {
+            // Silencioso se mapa ainda carregando
         }
 
         // Substituição direta em elementos folha com texto (botões, tabelas, menus, títulos)
