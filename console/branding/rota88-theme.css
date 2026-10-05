@@ -330,3 +330,49 @@ button.btn-primary:hover,
     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
     color: #0b132b !important;
 }
+
+/* ==========================================================================
+   9. CORREÇÃO DO MENU LATERAL DO ADMIN (LARGURA, ÍCONES E TEXTOS ALINHADOS)
+   ========================================================================== */
+.admin-sidebar,
+aside.admin-sidebar,
+.next-admin-sidebar,
+[data-sidebar="admin"],
+.sidebar-container:has(a[href*="/admin"]) {
+    width: 250px !important;
+    min-width: 250px !important;
+    max-width: 280px !important;
+}
+
+.admin-sidebar .sidebar-item,
+.admin-sidebar a,
+.next-admin-sidebar a,
+[data-sidebar="admin"] a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    padding: 10px 14px !important;
+    font-size: 13.5px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    border-radius: 8px !important;
+    margin-bottom: 2px !important;
+}
+
+.admin-sidebar svg,
+.next-admin-sidebar svg,
+[data-sidebar="admin"] svg {
+    flex-shrink: 0 !important;
+    min-width: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 2px !important;
+}
+
+.admin-sidebar a > span,
+.next-admin-sidebar a > span {
+    flex: 1 !important;
+    text-align: left !important;
+}
