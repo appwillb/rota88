@@ -332,38 +332,54 @@ button.btn-primary:hover,
 }
 
 /* ==========================================================================
-   9. CORREÇÃO DO MENU LATERAL DO ADMIN (LARGURA, ÍCONES E TEXTOS ALINHADOS)
+   9. CORREÇÃO DE TODOS OS MENUS LATERAIS (LARGURA, ÍCONES E TEXTOS ALINHADOS)
    ========================================================================== */
 .admin-sidebar,
 aside.admin-sidebar,
 .next-admin-sidebar,
 [data-sidebar="admin"],
-.sidebar-container:has(a[href*="/admin"]) {
-    width: 250px !important;
-    min-width: 250px !important;
-    max-width: 280px !important;
+.sidebar-container:has(a[href*="/admin"]),
+aside[class*="sidebar"],
+.sidebar,
+.next-sidebar,
+[data-sidebar],
+.ember-wormhole [class*="sidebar"],
+#sidebar-menu-items,
+#sidebar-menu-items > div {
+    width: 260px !important;
+    min-width: 260px !important;
+    max-width: 300px !important;
 }
 
 .admin-sidebar .sidebar-item,
 .admin-sidebar a,
 .next-admin-sidebar a,
-[data-sidebar="admin"] a {
+[data-sidebar="admin"] a,
+aside a,
+.sidebar a,
+[data-sidebar] a,
+#sidebar-menu-items a {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
     gap: 12px !important;
-    padding: 10px 14px !important;
+    padding: 9px 14px !important;
     font-size: 13.5px !important;
+    line-height: 1.4 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     border-radius: 8px !important;
-    margin-bottom: 2px !important;
+    margin-bottom: 3px !important;
 }
 
 .admin-sidebar svg,
 .next-admin-sidebar svg,
-[data-sidebar="admin"] svg {
+[data-sidebar="admin"] svg,
+aside svg,
+.sidebar svg,
+[data-sidebar] svg,
+#sidebar-menu-items svg {
     flex-shrink: 0 !important;
     min-width: 18px !important;
     width: 18px !important;
@@ -372,7 +388,15 @@ aside.admin-sidebar,
 }
 
 .admin-sidebar a > span,
-.next-admin-sidebar a > span {
+.next-admin-sidebar a > span,
+aside a > span,
+.sidebar a > span,
+[data-sidebar] a > span,
+#sidebar-menu-items a > span {
     flex: 1 !important;
     text-align: left !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
+
