@@ -345,10 +345,22 @@ aside[class*="sidebar"],
 [data-sidebar],
 .ember-wormhole [class*="sidebar"],
 #sidebar-menu-items,
-#sidebar-menu-items > div {
+#sidebar-menu-items > div,
+.sidebar-container {
     width: 260px !important;
     min-width: 260px !important;
-    max-width: 300px !important;
+    max-width: 290px !important;
+    background-color: #0d1527 !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Remover fundo branco ou estilo flutuante desalinhado */
+#sidebar-menu-items .bg-white,
+.admin-sidebar.bg-white,
+aside.bg-white,
+[data-sidebar].bg-white {
+    background-color: #0d1527 !important;
+    color: #f8fafc !important;
 }
 
 .admin-sidebar .sidebar-item,
@@ -366,11 +378,35 @@ aside a,
     padding: 9px 14px !important;
     font-size: 13.5px !important;
     line-height: 1.4 !important;
+    color: #cbd5e1 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     border-radius: 8px !important;
     margin-bottom: 3px !important;
+}
+
+.admin-sidebar a:hover,
+.next-admin-sidebar a:hover,
+[data-sidebar="admin"] a:hover,
+aside a:hover,
+.sidebar a:hover,
+[data-sidebar] a:hover,
+#sidebar-menu-items a:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+}
+
+.admin-sidebar a.active,
+.next-admin-sidebar a.active,
+[data-sidebar="admin"] a.active,
+aside a.active,
+.sidebar a.active,
+[data-sidebar] a.active,
+#sidebar-menu-items a.active {
+    background-color: rgba(245, 158, 11, 0.18) !important;
+    color: #fbbf24 !important;
+    font-weight: 700 !important;
 }
 
 .admin-sidebar svg,

@@ -676,7 +676,9 @@
             const ph = input.getAttribute('placeholder');
             if (ph) {
                 const clean = ph.replace(/\s+/g, ' ').trim().toLowerCase();
-                if (clean.includes('missing translation') || clean.includes('search-input') || clean === 'search' || clean === 'search...') {
+                if (clean.includes('search admin') || clean === 'search admin...' || clean === 'search admin') {
+                    input.placeholder = 'Buscar no Admin...';
+                } else if (clean.includes('missing translation') || clean.includes('search-input') || clean === 'search' || clean === 'search...') {
                     input.placeholder = 'Pesquisar...';
                 } else if (DICTIONARY[clean]) {
                     input.placeholder = DICTIONARY[clean];
