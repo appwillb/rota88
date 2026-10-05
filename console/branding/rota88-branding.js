@@ -99,7 +99,230 @@
         'geofences': 'Cercas Virtuais',
         'events': 'Eventos',
         'no vehicles visible': 'Nenhum veículo visível',
-        'vehicles appear here when they are available in the live map context.': 'Os veículos aparecerão aqui quando estiverem disponíveis no mapa.'
+        'vehicles appear here when they are available in the live map context.': 'Os veículos aparecerão aqui quando estiverem disponíveis no mapa.',
+
+        // Ações e Botões Comuns
+        'new': 'Novo',
+        'create': 'Criar',
+        'add': 'Adicionar',
+        'edit': 'Editar',
+        'update': 'Atualizar',
+        'save': 'Salvar',
+        'save changes': 'Salvar Alterações',
+        'delete': 'Excluir',
+        'delete selected': 'Excluir Selecionados',
+        'remove': 'Remover',
+        'cancel': 'Cancelar',
+        'confirm': 'Confirmar',
+        'close': 'Fechar',
+        'open': 'Abrir',
+        'view': 'Visualizar',
+        'preview': 'Pré-visualizar',
+        'upload': 'Enviar',
+        'download': 'Baixar',
+        'import': 'Importar',
+        'export': 'Exportar',
+        'print': 'Imprimir',
+        'duplicate': 'Duplicar',
+        'copy': 'Copiar',
+        'paste': 'Colar',
+        'share': 'Compartilhar',
+        'refresh': 'Atualizar',
+        'reset': 'Redefinir',
+        'retry': 'Tentar Novamente',
+        'back': 'Voltar',
+        'next': 'Próximo',
+        'previous': 'Anterior',
+        'submit': 'Enviar',
+        'apply': 'Aplicar',
+        'continue': 'Continuar',
+        'proceed': 'Prosseguir',
+        'select': 'Selecionar',
+        'deselect': 'Desmarcar',
+        'search': 'Pesquisar',
+        'filter': 'Filtrar',
+        'sort': 'Ordenar',
+        'view all': 'Ver Todos',
+        'clear': 'Limpar',
+        'done': 'Concluído',
+        'finish': 'Finalizar',
+        'skip': 'Pular',
+        'actions': 'Ações',
+        'details': 'Detalhes',
+        'overview': 'Visão Geral',
+        'status': 'Status',
+        'date': 'Data',
+        'time': 'Hora',
+        'name': 'Nome',
+        'type': 'Tipo',
+        'category': 'Categoria',
+        'description': 'Descrição',
+        'notes': 'Observações',
+        'all': 'Todos',
+        'none': 'Nenhum',
+        'select all': 'Selecionar Tudo',
+        'deselect all': 'Desmarcar Tudo',
+        'today': 'Hoje',
+        'yesterday': 'Ontem',
+        'tomorrow': 'Amanhã',
+
+        // Estados e Status de Pedidos / Entregas
+        'created': 'Criado',
+        'order created': 'Pedido Criado',
+        'dispatched': 'Despachado',
+        'order dispatched': 'Pedido Despachado',
+        'started': 'Iniciado',
+        'in progress': 'Em Andamento',
+        'in transit': 'Em Trânsito',
+        'completed': 'Concluído',
+        'delivered': 'Entregue',
+        'cancelled': 'Cancelado',
+        'failed': 'Falhou',
+        'pending': 'Pendente',
+        'active': 'Ativo',
+        'inactive': 'Inativo',
+        'online': 'Online',
+        'offline': 'Offline',
+        'available': 'Disponível',
+        'busy': 'Ocupado',
+
+        // Rastreamento e Mapa de Entregas (Tracking)
+        'live map:': 'Mapa em Tempo Real:',
+        'live map': 'Mapa em Tempo Real',
+        'view route': 'Ver Rota',
+        'locate driver': 'Localizar Entregador',
+        'lookup another order': 'Rastrear Outro Pedido',
+        'lookup order': 'Buscar Pedido',
+        'lookup another': 'Buscar Outro',
+        'tracking:': 'Rastreamento:',
+        'tracking': 'Rastreamento',
+        'current eta:': 'Previsão Atual:',
+        'current eta': 'Previsão Atual',
+        'ect:': 'Hora Estimada:',
+        'current destination:': 'Destino Atual:',
+        'current destination': 'Destino Atual',
+        'next destination:': 'Próximo Destino:',
+        'next destination': 'Próximo Destino',
+        'pickup': 'Coleta',
+        'dropoff': 'Entrega',
+        'date created:': 'Data de Criação:',
+        'date created': 'Data de Criação',
+        'order details': 'Detalhes do Pedido',
+        'package details': 'Detalhes do Pacote',
+        'customer details': 'Dados do Cliente',
+        'driver details': 'Dados do Entregador',
+        'delivery route': 'Rota de Entrega',
+        'back to console': 'Voltar ao Painel',
+
+        // Operações de Entrega (FleetOps)
+        'orders': 'Pedidos',
+        'new order': 'Novo Pedido',
+        'create order': 'Criar Pedido',
+        'edit order': 'Editar Pedido',
+        'cancel order': 'Cancelar Pedido',
+        'delete order': 'Excluir Pedido',
+        'dispatch': 'Despachar',
+        'dispatch order': 'Despachar Pedido',
+        'assign driver': 'Atribuir Motorista',
+        'unassign driver': 'Desatribuir Motorista',
+        'customer': 'Cliente',
+        'customers': 'Clientes',
+        'driver': 'Motorista',
+        'vehicle': 'Veículo',
+        'destination': 'Destino',
+        'origin': 'Origem',
+        'proof of delivery': 'Comprovante de Entrega',
+        'signature': 'Assinatura',
+        'tracking number': 'Código de Rastreio',
+        'internal id': 'ID Interno',
+        'route': 'Rota',
+        'distance': 'Distância',
+        'total distance': 'Distância Total',
+        'duration': 'Duração',
+        'waypoints': 'Pontos da Rota',
+        'payload': 'Carga',
+        'entities': 'Itens / Pacotes',
+
+        // Tabela de Motoristas e Veículos
+        'new driver': 'Novo Motorista',
+        'create driver': 'Cadastrar Motorista',
+        'edit driver': 'Editar Motorista',
+        'driver name': 'Nome do Motorista',
+        'license number': 'Número da CNH',
+        'phone number': 'Telefone',
+        'vehicle assigned': 'Veículo Vinculado',
+        'current location': 'Localização Atual',
+        'new vehicle': 'Novo Veículo',
+        'create vehicle': 'Cadastrar Veículo',
+        'license plate': 'Placa',
+        'plate': 'Placa',
+        'model': 'Modelo',
+        'make': 'Marca',
+        'year': 'Ano',
+
+        // Tabela de Locais e Clientes (Places & Contacts)
+        'new place': 'Novo Local',
+        'create place': 'Cadastrar Local',
+        'place name': 'Nome do Local',
+        'address': 'Endereço',
+        'street': 'Rua',
+        'city': 'Cidade',
+        'state': 'Estado',
+        'postal code': 'CEP',
+        'country': 'País',
+        'latitude': 'Latitude',
+        'longitude': 'Longitude',
+        'coordinates': 'Coordenadas',
+        'contacts': 'Contatos',
+        'new contact': 'Novo Contato',
+
+        // Chaves de API e Integrações (Developers)
+        'api keys': 'Chaves de API',
+        'new api key': 'Nova Chave de API',
+        'create api key': 'Criar Chave de API',
+        'public key': 'Chave Pública',
+        'secret key': 'Chave Secreta',
+        'environment': 'Ambiente',
+        'expiration': 'Expiração',
+        'last used': 'Último Uso',
+        'view test data': 'Visualizar Dados de Teste',
+        'webhooks': 'Webhooks',
+        'websockets': 'WebSockets',
+        'logs': 'Registros de Logs',
+
+        // Lojas & Pedidos (Storefront)
+        'stores': 'Lojas',
+        'new store': 'Nova Loja',
+        'products': 'Produtos',
+        'new product': 'Novo Produto',
+        'inventory': 'Estoque',
+        'categories': 'Categorias',
+        'customers': 'Clientes',
+        'discounts': 'Descontos',
+        'checkout': 'Finalização',
+
+        // Acessos e Usuários (IAM)
+        'users': 'Usuários',
+        'new user': 'Novo Usuário',
+        'create user': 'Cadastrar Usuário',
+        'roles': 'Funções & Cargos',
+        'permissions': 'Permissões',
+        'policies': 'Políticas',
+        'groups': 'Grupos',
+        'email': 'E-mail',
+        'password': 'Senha',
+        'confirm password': 'Confirmar Senha',
+        'phone': 'Telefone',
+
+        // Financeiro (Ledger)
+        'accounts': 'Contas',
+        'transactions': 'Transações',
+        'invoices': 'Faturas',
+        'gateways': 'Meios de Pagamento',
+        'balance': 'Saldo',
+        'debit': 'Débito',
+        'credit': 'Crédito',
+        'currency': 'Moeda'
     };
 
     // 4. Garantir Visibilidade e Funcionamento do Botão de Menu Lateral
@@ -206,10 +429,22 @@
             }
         }
 
-        // Substituição direta em elementos folha com texto
-        const elementsToCheck = document.querySelectorAll('.next-header-dd-menu-item, .next-dd-item, [role="menuitem"], .kpi-title, h1, h2, h3, h4');
+        // Substituição direta em elementos folha com texto (botões, tabelas, menus, títulos)
+        const elementsToCheck = document.querySelectorAll('.next-header-dd-menu-item, .next-dd-item, [role="menuitem"], .kpi-title, button, a, th, td, label, span, p, h1, h2, h3, h4');
         elementsToCheck.forEach(el => {
-            if (el.children.length <= 1) {
+            // Traduzir títulos e atributos de acessibilidade
+            ['title', 'aria-label'].forEach(attr => {
+                const val = el.getAttribute(attr);
+                if (val) {
+                    const clean = val.replace(/\s+/g, ' ').trim().toLowerCase();
+                    if (DICTIONARY[clean]) {
+                        el.setAttribute(attr, DICTIONARY[clean]);
+                    }
+                }
+            });
+
+            // Se for botão ou link que contenha texto direto
+            if (el.children.length <= 2) {
                 const textOnly = Array.from(el.childNodes)
                     .filter(n => n.nodeType === Node.TEXT_NODE)
                     .map(n => n.nodeValue)
@@ -219,7 +454,6 @@
                     .toLowerCase();
 
                 if (DICTIONARY[textOnly]) {
-                    // Encontrar e atualizar o nó de texto específico sem matar ícones svg
                     Array.from(el.childNodes).forEach(n => {
                         if (n.nodeType === Node.TEXT_NODE && n.nodeValue.trim().length > 0) {
                             n.nodeValue = DICTIONARY[textOnly];
@@ -230,9 +464,17 @@
         });
 
         // Corrigir placeholders
-        const searchInputs = document.querySelectorAll('input[placeholder*="Missing translation"], input[placeholder*="search-input"], input[placeholder*="Search"]');
+        const searchInputs = document.querySelectorAll('input[placeholder], textarea[placeholder]');
         searchInputs.forEach(input => {
-            input.placeholder = 'Pesquisar...';
+            const ph = input.getAttribute('placeholder');
+            if (ph) {
+                const clean = ph.replace(/\s+/g, ' ').trim().toLowerCase();
+                if (clean.includes('missing translation') || clean.includes('search-input') || clean === 'search' || clean === 'search...') {
+                    input.placeholder = 'Pesquisar...';
+                } else if (DICTIONARY[clean]) {
+                    input.placeholder = DICTIONARY[clean];
+                }
+            }
         });
     }
 
