@@ -238,16 +238,17 @@ header .chat-tray-panel-trigger:hover svg,
 }
 
 /* TEXTOS DENTRO DO DROPDOWN: DEVEM SER ESCUROS PARA TOTAL VISIBILIDADE */
-.dropdown-menu a,
-.next-dropdown-menu a,
+header .dropdown-menu a,
+header .next-dropdown-menu a,
 .next-user-button-tray a,
 .next-org-button-tray a,
 .next-header-dd-menu-item,
 .next-dd-item,
-[role="menu"] a,
-[role="menu"] button,
-[role="menu"] span:not(.badge),
-[role="menuitem"]:not(header [role="menubar"] [role="menuitem"]) {
+header [role="menu"] a,
+header [role="menu"] button,
+header [role="menu"] span:not(.badge),
+.next-user-button-tray [role="menuitem"],
+.next-org-button-tray [role="menuitem"] {
     color: #0f172a !important;
     font-weight: 500 !important;
     font-size: 14px !important;
@@ -256,12 +257,12 @@ header .chat-tray-panel-trigger:hover svg,
 }
 
 /* Ícones dentro do Dropdown */
-.dropdown-menu svg,
-.next-dropdown-menu svg,
+header .dropdown-menu svg,
+header .next-dropdown-menu svg,
 .next-user-button-tray svg,
 .next-org-button-tray svg,
 .next-header-dd-menu-item:not(.active) svg,
-[role="menu"] svg {
+.next-user-button-tray [role="menu"] svg {
     color: #475569 !important;
     fill: #475569 !important;
     margin-right: 8px !important;
@@ -370,6 +371,25 @@ aside.bg-white,
 aside a,
 .sidebar a,
 [data-sidebar] a,
+#sidebar-menu-items a,
+.admin-sidebar .sidebar-item *,
+.admin-sidebar a *,
+.next-admin-sidebar a *,
+[data-sidebar="admin"] a *,
+aside a *,
+.sidebar a *,
+[data-sidebar] a *,
+#sidebar-menu-items a * {
+    color: #e2e8f0 !important;
+}
+
+.admin-sidebar .sidebar-item,
+.admin-sidebar a,
+.next-admin-sidebar a,
+[data-sidebar="admin"] a,
+aside a,
+.sidebar a,
+[data-sidebar] a,
 #sidebar-menu-items a {
     display: flex !important;
     align-items: center !important;
@@ -378,7 +398,6 @@ aside a,
     padding: 9px 14px !important;
     font-size: 13.5px !important;
     line-height: 1.4 !important;
-    color: #cbd5e1 !important;
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -393,8 +412,19 @@ aside a:hover,
 .sidebar a:hover,
 [data-sidebar] a:hover,
 #sidebar-menu-items a:hover {
-    background-color: rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
     color: #ffffff !important;
+}
+
+.admin-sidebar a:hover *,
+.next-admin-sidebar a:hover *,
+[data-sidebar="admin"] a:hover *,
+aside a:hover *,
+.sidebar a:hover *,
+[data-sidebar] a:hover *,
+#sidebar-menu-items a:hover * {
+    color: #ffffff !important;
+    fill: #ffffff !important;
 }
 
 .admin-sidebar a.active,
@@ -404,9 +434,20 @@ aside a.active,
 .sidebar a.active,
 [data-sidebar] a.active,
 #sidebar-menu-items a.active {
-    background-color: rgba(245, 158, 11, 0.18) !important;
-    color: #fbbf24 !important;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+    color: #0b132b !important;
     font-weight: 700 !important;
+}
+
+.admin-sidebar a.active *,
+.next-admin-sidebar a.active *,
+[data-sidebar="admin"] a.active *,
+aside a.active *,
+.sidebar a.active *,
+[data-sidebar] a.active *,
+#sidebar-menu-items a.active * {
+    color: #0b132b !important;
+    fill: #0b132b !important;
 }
 
 .admin-sidebar svg,
@@ -421,6 +462,8 @@ aside svg,
     width: 18px !important;
     height: 18px !important;
     margin-right: 2px !important;
+    color: #cbd5e1 !important;
+    fill: #cbd5e1 !important;
 }
 
 .admin-sidebar a > span,
@@ -434,5 +477,21 @@ aside a > span,
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+}
+
+/* Campo de busca do menu lateral */
+#sidebar-menu-items input,
+.admin-sidebar input,
+aside input {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border: 1px solid #334155 !important;
+    border-radius: 6px !important;
+}
+
+#sidebar-menu-items input::placeholder,
+.admin-sidebar input::placeholder,
+aside input::placeholder {
+    color: #94a3b8 !important;
 }
 
