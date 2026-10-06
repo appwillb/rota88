@@ -871,20 +871,29 @@
 
         // 5.1 Recentralizar automaticamente o "Mapa da Frota em Tempo Real" do Dashboard para Trindade/Goiás
         try {
-            const dashboardMap = document.querySelector('.live-map-container .leaflet-container, .dashboard-widget-content .leaflet-container');
-            if (dashboardMap && !dashboardMap.dataset.rota88Centered && window.L) {
-                const mapInstance = dashboardMap._leaflet_map || (dashboardMap._leaflet_id && window.L.map?.instances?.[dashboardMap._leaflet_id]);
-                if (mapInstance && typeof mapInstance.setView === 'function') {
-                    mapInstance.setView([-16.6545, -49.4876], 13);
-                    dashboardMap.dataset.rota88Centered = 'true';
+            const allLeafletContainers = document.querySelectorAll('.leaflet-container');
+            allLeafletContainers.forEach(container => {
+                if (container.id === 'rota88-rescue-map-container') return;
+                if (container.dataset.rota88Centered) return;
+                
+                // Verificar se há instância Leaflet acoplada
+                let mapObj = container._leaflet_map;
+                if (!mapObj && window.L && window.L.map && window.L.map.instances) {
+                    mapObj = window.L.map.instances[container._leaflet_id];
                 }
-            }
+                
+                // Trindade - GO: -16.6545, -49.4876
+                if (mapObj && typeof mapObj.setView === 'function') {
+                    mapObj.setView([-16.6545, -49.4876], 13);
+                    container.dataset.rota88Centered = 'true';
+                }
+            });
         } catch (e) {
             // Silencioso se mapa ainda carregando
         }
 
         // Substituição direta em atributos e elementos de interface
-        const elementsToCheck = document.querySelectorAll('.next-header-dd-menu-item, .next-dd-item, [role="menuitem"], .kpi-title, button, a, th, td, label, span, p, h1, h2, h3, h4, dt, dd, legend');
+        const elementsToCheck = document.querySelectorAll('.next-header-dd-menu-item, .next-dd-item, [role="menuitem"], .kpi-title, .kpi-value, button, a, th, td, label, span, p, h1, h2, h3, h4, dt, dd, legend, div');
         elementsToCheck.forEach(el => {
             // Traduzir títulos e atributos de acessibilidade
             ['title', 'aria-label'].forEach(attr => {
@@ -897,8 +906,13 @@
                 }
             });
 
-            // Se for elemento que contenha texto direto
-            if (el.children.length <= 2) {
+            // Se for elemento folha ou com poucos filhos (como cards de KPI $0.00)
+            if (el.children.length === 0) {
+                let txt = el.textContent ? el.textContent.trim() : '';
+                if (txt.includes('$')) {
+                    el.textContent = txt.replace(/\$([0-9.,]+)/g, 'R$ $1').replace(/^\$\s*/, 'R$ ');
+                }
+            } else if (el.children.length <= 2) {
                 const textOnly = Array.from(el.childNodes)
                     .filter(n => n.nodeType === Node.TEXT_NODE)
                     .map(n => n.nodeValue)
