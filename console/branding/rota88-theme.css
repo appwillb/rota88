@@ -495,3 +495,90 @@ aside input::placeholder {
     color: #94a3b8 !important;
 }
 
+/* ==========================================================================
+   10. RESPONSIVIDADE PARA CELULAR E TELAS PEQUENAS (MOBILE)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Topo / Barra de Navegação */
+    header,
+    [role="banner"] {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 4px 8px !important;
+        height: auto !important;
+        min-height: 52px !important;
+    }
+
+    /* Reduzir tamanho do logotipo no mobile para não esmagar a tela */
+    header a[href="/"],
+    [role="banner"] a[href="/"],
+    nav a[href="/"] {
+        width: 120px !important;
+        min-width: 120px !important;
+        margin-right: 6px !important;
+    }
+
+    header a[href="/"] img,
+    [role="banner"] a[href="/"] img,
+    nav a[href="/"] img {
+        width: 120px !important;
+        min-width: 120px !important;
+        height: 28px !important;
+    }
+
+    /* Itens de menu superior em barra horizontal deslizante */
+    header [role="menubar"],
+    [role="banner"] [role="menubar"] {
+        display: flex !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        max-width: 100% !important;
+        gap: 4px !important;
+        padding-bottom: 2px !important;
+        scrollbar-width: none !important;
+    }
+
+    header [role="menubar"]::-webkit-scrollbar,
+    [role="banner"] [role="menubar"]::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    header [role="menubar"] [role="menuitem"],
+    [role="banner"] [role="menubar"] [role="menuitem"] {
+        font-size: 11.5px !important;
+        padding: 4px 8px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Menus Laterais no Mobile ocupam tela com sobreposição amigável */
+    .admin-sidebar,
+    aside.admin-sidebar,
+    .next-admin-sidebar,
+    [data-sidebar="admin"],
+    aside[class*="sidebar"],
+    .sidebar,
+    .next-sidebar,
+    [data-sidebar],
+    #sidebar-menu-items,
+    #sidebar-menu-items > div,
+    .sidebar-container {
+        width: 85vw !important;
+        max-width: 320px !important;
+        z-index: 9999 !important;
+    }
+
+    /* Cards de Estatísticas em coluna única ou 2 colunas */
+    .grid-stack-item,
+    .next-dashboard-widget-card,
+    .kpi-tile {
+        width: 100% !important;
+    }
+
+    /* Ajuste de mapa no celular */
+    .leaflet-container {
+        min-height: 240px !important;
+    }
+}
+
