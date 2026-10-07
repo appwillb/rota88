@@ -1041,8 +1041,10 @@
                     }).setView(defaultCenter, 14);
                     window._rota88RescueMapInstance = rescueMap;
 
-                    window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19
+                    // Mapa moderno CartoDB Voyager (limpo, de alto padrão estilo Uber/iFood)
+                    window.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                        maxZoom: 19,
+                        subdomains: 'abcd'
                     }).addTo(rescueMap);
 
                     const bounds = [];
@@ -1050,25 +1052,25 @@
                     if (pickupCoord) {
                         bounds.push(pickupCoord);
                         const storeIcon = window.L.divIcon({
-                            html: '<div style="background:#10b981; color:#fff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(0,0,0,0.4); font-size:18px; border:2px solid #fff;">🏪</div>',
+                            html: '<div style="background:#10b981; color:#fff; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(16,185,129,0.5); font-size:20px; border:3px solid #ffffff;">🏪</div>',
                             className: 'rota88-pin-store',
-                            iconSize: [34, 34],
-                            iconAnchor: [17, 17]
+                            iconSize: [38, 38],
+                            iconAnchor: [19, 19]
                         });
                         window.L.marker(pickupCoord, { icon: storeIcon }).addTo(rescueMap)
-                            .bindPopup('<b>Ponto de Coleta (Farmácia)</b><br>' + (payload.pickup?.name || 'Farmácia / Loja'));
+                            .bindPopup('<b>🏪 Farmácia (Ponto de Coleta)</b><br>' + (payload.pickup?.name || 'Farmácia'));
                     }
 
                     if (dropoffCoord) {
                         bounds.push(dropoffCoord);
                         const clientIcon = window.L.divIcon({
-                            html: '<div style="background:#ef4444; color:#fff; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(0,0,0,0.4); font-size:18px; border:2px solid #fff;">📍</div>',
+                            html: '<div style="background:#ef4444; color:#fff; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(239,68,68,0.5); font-size:20px; border:3px solid #ffffff; animation: pulse 2s infinite;">📍</div>',
                             className: 'rota88-pin-client',
-                            iconSize: [34, 34],
-                            iconAnchor: [17, 17]
+                            iconSize: [38, 38],
+                            iconAnchor: [19, 19]
                         });
                         window.L.marker(dropoffCoord, { icon: clientIcon }).addTo(rescueMap)
-                            .bindPopup('<b>Ponto de Entrega (Cliente)</b><br>' + (payload.dropoff?.name || payload.dropoff?.street1 || 'Endereço de Entrega'));
+                            .bindPopup('<b>📍 Destino (Cliente)</b><br>' + (payload.dropoff?.street1 || payload.dropoff?.name || 'Endereço de Entrega'));
                     }
 
                     if (pickupCoord && dropoffCoord) {
@@ -1082,26 +1084,36 @@
                             .then(routeData => {
                                 if (routeData.routes && routeData.routes.length > 0) {
                                     const coords = routeData.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                                    
+                                    // Sombra da rota para profundidade 3D
+                                    window.L.polyline(coords, {
+                                        color: '#1e3a8a',
+                                        weight: 9,
+                                        opacity: 0.35
+                                    }).addTo(rescueMap);
+
+                                    // Linha principal vibrante estilo Google Maps
                                     const poly = window.L.polyline(coords, {
                                         color: '#2563eb',
                                         weight: 5,
-                                        opacity: 0.85
+                                        opacity: 0.95
                                     }).addTo(rescueMap);
-                                    rescueMap.fitBounds(poly.getBounds(), { padding: [50, 50] });
+
+                                    rescueMap.fitBounds(poly.getBounds(), { padding: [60, 60] });
                                 } else {
-                                    rescueMap.fitBounds(bounds, { padding: [50, 50] });
+                                    rescueMap.fitBounds(bounds, { padding: [60, 60] });
                                 }
                             })
                             .catch(() => {
                                 const directLine = window.L.polyline([pickupCoord, dropoffCoord], {
                                     color: '#2563eb',
                                     weight: 4,
-                                    dashArray: '8, 8'
+                                    dashArray: '6, 8'
                                 }).addTo(rescueMap);
-                                rescueMap.fitBounds(directLine.getBounds(), { padding: [50, 50] });
+                                rescueMap.fitBounds(directLine.getBounds(), { padding: [60, 60] });
                             });
                     } else if (bounds.length > 0) {
-                        rescueMap.fitBounds(bounds, { padding: [50, 50] });
+                        rescueMap.fitBounds(bounds, { padding: [60, 60] });
                     }
 
                     // Criar container de visualização estilo iFood/Rappi se não existir
