@@ -1104,6 +1104,65 @@
                         rescueMap.fitBounds(bounds, { padding: [50, 50] });
                     }
 
+                    // Criar container de visualização estilo iFood/Rappi se não existir
+                    let modernCard = document.getElementById('rota88-modern-tracker-card');
+                    if (!modernCard) {
+                        modernCard = document.createElement('div');
+                        modernCard.id = 'rota88-modern-tracker-card';
+                        modernCard.style.cssText = 'position: absolute; bottom: 16px; left: 16px; right: 16px; z-index: 1001; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.25); padding: 18px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 500px; margin: 0 auto;';
+                        
+                        const statusTitle = payload.status === 'dispatched' ? '🛵 Entregador a caminho!' : (payload.status === 'completed' ? '✅ Pedido Entregue!' : '📦 Pedido em Preparação');
+                        const pharmacyName = payload.pickup?.name || 'Farmácia Parceira';
+                        const clientAddr = payload.dropoff?.street1 || payload.dropoff?.name || 'Endereço de Entrega';
+                        const clientPhone = payload.dropoff?.phone || '';
+
+                        modernCard.innerHTML = `
+                            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 12px;">
+                                <div>
+                                    <span style="background: #fef3c7; color: #d97706; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">ZapFarm Express</span>
+                                    <h3 style="margin: 4px 0 0 0; font-size: 16px; font-weight: 800; color: #0f172a;">${statusTitle}</h3>
+                                </div>
+                                <div style="width: 40px; height: 40px; background: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;">🛵</div>
+                            </div>
+
+                            <!-- Barra de Progresso Visual Estilo App -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                    <div style="width: 22px; height: 22px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">✓</div>
+                                    <span style="font-size: 10px; color: #64748b; margin-top: 4px; font-weight: 600;">Confirmado</span>
+                                </div>
+                                <div style="height: 3px; background: #10b981; flex: 1; margin: 0 4px -14px 4px;"></div>
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                    <div style="width: 22px; height: 22px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">✓</div>
+                                    <span style="font-size: 10px; color: #64748b; margin-top: 4px; font-weight: 600;">Embalado</span>
+                                </div>
+                                <div style="height: 3px; background: ${payload.status === 'dispatched' || payload.status === 'completed' ? '#10b981' : '#e2e8f0'}; flex: 1; margin: 0 4px -14px 4px;"></div>
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                    <div style="width: 22px; height: 22px; border-radius: 50%; background: ${payload.status === 'dispatched' || payload.status === 'completed' ? '#2563eb' : '#cbd5e1'}; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">🛵</div>
+                                    <span style="font-size: 10px; color: ${payload.status === 'dispatched' ? '#2563eb' : '#64748b'}; margin-top: 4px; font-weight: 700;">A Caminho</span>
+                                </div>
+                            </div>
+
+                            <div style="font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 10px;">
+                                <div style="margin-bottom: 4px;">🏪 <b>Coleta:</b> ${pharmacyName}</div>
+                                <div>📍 <b>Entrega:</b> ${clientAddr}</div>
+                            </div>
+
+                            <!-- Botões de Ação Rápida -->
+                            <div style="display: flex; gap: 8px;">
+                                ${dropoffCoord ? `
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=${dropoffCoord[0]},${dropoffCoord[1]}" target="_blank" style="flex: 1; text-align: center; background: #0f172a; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                    🗺️ Abrir no Maps
+                                </a>` : ''}
+                                ${clientPhone ? `
+                                <a href="https://wa.me/${clientPhone.replace(/\\D/g, '')}" target="_blank" style="flex: 1; text-align: center; background: #16a34a; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                    💬 WhatsApp
+                                </a>` : ''}
+                            </div>
+                        `;
+                        leafletContainer.appendChild(modernCard);
+                    }
+
                     setTimeout(() => {
                         rescueMap.invalidateSize();
                     }, 500);
