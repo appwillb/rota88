@@ -1047,10 +1047,10 @@
                     }).setView(defaultCenter, 14);
                     window._rota88RescueMapInstance = rescueMap;
 
-                    // Mapa moderno CartoDB Voyager (limpo, de alto padrão estilo Uber/iFood)
-                    window.L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                    // Mapa OpenStreetMap 100% gratuito e livre sem necessidade de API Key
+                    window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         maxZoom: 19,
-                        subdomains: 'abcd'
+                        attribution: '&copy; OpenStreetMap contributors'
                     }).addTo(rescueMap);
 
                     const bounds = [];
