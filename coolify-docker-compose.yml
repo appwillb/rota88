@@ -11,10 +11,10 @@ services:
     volumes:
       - fleetbase_db_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?ERRO: defina DB_ROOT_PASSWORD no Coolify}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-}
       MYSQL_DATABASE: fleetbase
       MYSQL_USER: ${DB_USERNAME:-fleetbase}
-      MYSQL_PASSWORD: ${DB_PASSWORD:?ERRO: defina DB_PASSWORD no Coolify}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-}
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
@@ -65,7 +65,7 @@ services:
       APP_ENV: production
       APP_DEBUG: "false"
       APP_URL: ${API_DOMAIN:-https://api.seudominio.com}
-      DATABASE_URL: "mysql://${DB_USERNAME:-fleetbase}:${DB_PASSWORD:?ERRO: defina DB_PASSWORD no Coolify}@database/fleetbase"
+      DATABASE_URL: "mysql://${DB_USERNAME:-fleetbase}:${DB_PASSWORD:-}@database/fleetbase"
       QUEUE_CONNECTION: redis
       CACHE_DRIVER: redis
       CACHE_PATH: /fleetbase/api/storage/framework/cache
@@ -115,7 +115,7 @@ services:
       timeout: 10s
       retries: 3
     environment:
-      DATABASE_URL: "mysql://${DB_USERNAME:-fleetbase}:${DB_PASSWORD:?ERRO: defina DB_PASSWORD no Coolify}@database/fleetbase"
+      DATABASE_URL: "mysql://${DB_USERNAME:-fleetbase}:${DB_PASSWORD:-}@database/fleetbase"
       QUEUE_CONNECTION: redis
       CACHE_DRIVER: redis
       CACHE_PATH: /fleetbase/api/storage/framework/cache
@@ -134,7 +134,7 @@ services:
     command: ["go-crond", "--verbose", "root:./crontab"]
     restart: unless-stopped
     environment:
-      DATABASE_URL: "mysql://${DB_USERNAME:-fleetbase}:${DB_PASSWORD:?ERRO: defina DB_PASSWORD no Coolify}@database/fleetbase"
+      DATABASE_URL: "mysql://${DB_USERNAME:-fleetbase}:${DB_PASSWORD:-}@database/fleetbase"
       QUEUE_CONNECTION: redis
       CACHE_DRIVER: redis
       CACHE_PATH: /fleetbase/api/storage/framework/cache
