@@ -612,3 +612,301 @@ aside input::placeholder {
     }
 }
 
+
+
+
+/* ==========================================================================
+   11. NAV BAR INFERIOR MOBILE (MobileNavbar do Fleetbase) - TEMA ESCURO
+   A barra nativa e branca com icones claros (invisiveis no tema escuro).
+   Aqui ela recebe o padrao visual Rota88: fundo azul-noturno, borda dourada
+   e icones/labels brancos com destaque dourado no item ativo.
+   ========================================================================== */
+@media (max-width: 1023px) {
+
+    /* Container da barra inferior fixa (MobileNavbar renderiza fixed bottom) */
+    .mobile-navbar,
+    nav.mobile-navbar,
+    [data-test-mobile-navbar],
+    .layout-mobile-navbar,
+    footer.mobile-navbar,
+    div.fixed.bottom-0.inset-x-0.z-50,
+    div[class*="mobile-navbar"] {
+        background: linear-gradient(180deg, #0d1527 0%, #0b132b 100%) !important;
+        border-top: 2px solid #f59e0b !important;
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.45) !important;
+        padding: 6px 8px calc(6px + env(safe-area-inset-bottom)) !important;
+        backdrop-filter: blur(8px) !important;
+    }
+
+    /* Itens da barra: coluna icone-em-cima, label-embaixo, branco legivel */
+    .mobile-navbar a,
+    .mobile-navbar button,
+    div[class*="mobile-navbar"] a,
+    div[class*="mobile-navbar"] button,
+    div.fixed.bottom-0.inset-x-0.z-50 a,
+    div.fixed.bottom-0.inset-x-0.z-50 button {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 3px !important;
+        min-width: 64px !important;
+        padding: 6px 4px !important;
+        border-radius: 10px !important;
+        color: #cbd5e1 !important;
+        font-size: 10.5px !important;
+        font-weight: 600 !important;
+        line-height: 1.2 !important;
+        background: transparent !important;
+    }
+
+    /* Icones: brancos com contraste garantido */
+    .mobile-navbar svg,
+    .mobile-navbar img,
+    div[class*="mobile-navbar"] svg,
+    div[class*="mobile-navbar"] img,
+    div.fixed.bottom-0.inset-x-0.z-50 svg {
+        color: #ffffff !important;
+        fill: #ffffff !important;
+        width: 22px !important;
+        height: 22px !important;
+        opacity: 0.9 !important;
+    }
+
+    /* Item ativo: dourado */
+    .mobile-navbar a.active,
+    .mobile-navbar a.text-yellow-600,
+    .mobile-navbar button.active,
+    div[class*="mobile-navbar"] a.active,
+    div.fixed.bottom-0.inset-x-0.z-50 a.active {
+        color: #fbbf24 !important;
+        background: rgba(245, 158, 11, 0.14) !important;
+    }
+
+    .mobile-navbar a.active svg,
+    .mobile-navbar a.text-yellow-600 svg,
+    div[class*="mobile-navbar"] a.active svg {
+        color: #fbbf24 !important;
+        fill: #fbbf24 !important;
+        opacity: 1 !important;
+    }
+
+    /* Conteudo principal nao pode ficar embaixo da barra fixa */
+    .layout-main,
+    .layout-container,
+    main,
+    [class*="layout-main"] {
+        padding-bottom: 86px !important;
+    }
+
+    /* Nome de usuario/org truncado no mobile: vira abreviatura legivel */
+    .mobile-navbar .truncate,
+    div[class*="mobile-navbar"] .truncate {
+        max-width: 90px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+}
+
+/* ==========================================================================
+   12. CARDS DE KPI / WIDGETS DO DASHBOARD - UNIFORMIZACAO PROFISSIONAL
+   ========================================================================== */
+
+/* Cards de estatistica (Count/Metric/Widgets): mesmo card escuro com borda
+   sutil, altura harmonica e SEM CORTE do ultimo card (grid auto rows) */
+.dashboard-component-count,
+.dashboard-component-metric,
+.kpi-tile,
+.next-dashboard-widget-card,
+.grid-stack-item,
+[class*="dashboard-widget"] {
+    background: linear-gradient(145deg, #101a30 0%, #0d1527 100%) !important;
+    border: 1px solid rgba(148, 163, 184, 0.16) !important;
+    border-radius: 14px !important;
+    padding: 18px 20px !important;
+    margin: 0 !important;
+    min-height: 118px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease !important;
+    overflow: hidden !important;
+}
+
+.dashboard-component-count:hover,
+.dashboard-component-metric:hover,
+.kpi-tile:hover,
+.next-dashboard-widget-card:hover {
+    transform: translateY(-2px) !important;
+    border-color: rgba(245, 158, 11, 0.45) !important;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Titulo do card: discreto, cinza-azulado claro */
+.dashboard-component-count h3,
+.dashboard-component-metric h3,
+.kpi-tile h3,
+.next-dashboard-widget-card h3 {
+    color: #94a3b8 !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 10px !important;
+}
+
+/* Valor do card: grande, branco, alinhado a esquerda */
+.dashboard-component-count h1,
+.dashboard-component-metric .metric-value,
+.kpi-tile .value,
+.next-dashboard-widget-card h1 {
+    color: #ffffff !important;
+    font-size: 26px !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+    overflow-wrap: anywhere !important;
+}
+
+/* Grid do dashboard: fileiras automaticas de altura igual - corrige o
+   card 'LUCRO LIQUIDO' cortado na borda inferior */
+.dashboard-metric-grid,
+.grid-stack,
+.grid-stack-item-content,
+.grid > .dashboard-component-count,
+.grid > .dashboard-component-metric {
+    grid-auto-rows: 1fr !important;
+}
+
+.grid-stack-item-content,
+.dashboard-component-count,
+.dashboard-component-metric {
+    height: 100% !important;
+}
+
+/* Linha divisoria sutil entre titulo e valor do card de metrica */
+.dashboard-component-metric .metric-title,
+.dashboard-component-count h3 {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14) !important;
+    padding-bottom: 8px !important;
+}
+
+/* Contadores dentro de cards (ex: '3 abertos / 0 adiados') com espacamento */
+.dashboard-component-metric .metric-description,
+.kpi-tile p,
+.next-dashboard-widget-card p {
+    color: #94a3b8 !important;
+    font-size: 12px !important;
+    margin-top: 8px !important;
+}
+
+
+/* ==========================================================================
+   13. HEADER MOBILE - USUARIO E NOME TRUNCADOS
+   Nome de org/usuario muito longo no mobile e colapsado com reticencias
+   sobre o logo. Aqui: limita a largura e mantem legibilidade, e o menu
+   superior desliza horizontalmente sem esmagar o logo.
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    /* Nome da organizacao no header: maximo 110px, elipse suave */
+    header .next-org-button-trigger,
+    [role="banner"] .next-org-button-trigger {
+        max-width: 110px !important;
+        overflow: hidden !important;
+    }
+
+    header .next-org-button-trigger .truncate,
+    [role="banner"] .next-org-button-trigger .truncate {
+        max-width: 84px !important;
+    }
+
+    /* No celular muito estreito: esconde o texto, mantem so avatar + badge */
+    @media (max-width: 480px) {
+        header .next-user-button-trigger .truncate,
+        [role="banner"] .next-user-button-trigger .truncate {
+            display: none !important;
+        }
+
+        header .next-user-button-trigger,
+        [role="banner"] .next-user-button-trigger {
+            min-width: 38px !important;
+            padding: 4px !important;
+        }
+    }
+
+    /* Cards em grid de 2 colunas iguais no mobile (antes: alturas desiguais) */
+    .grid-stack-item,
+    .dashboard-component-count,
+    .dashboard-component-metric,
+    .kpi-tile,
+    .next-dashboard-widget-card {
+        width: 100% !important;
+        min-height: 104px !important;
+    }
+
+    /* Valor do KPI levemente menor no mobile */
+    .dashboard-component-count h1,
+    .kpi-tile .value {
+        font-size: 22px !important;
+    }
+}
+
+
+/* ==========================================================================
+   14. BOTOES DENTRO DE CARDS (ex: 'Abrir Radar') E ELEMENTOS DE ACAO
+   ========================================================================== */
+.dashboard-component-count a,
+.dashboard-component-metric a,
+.kpi-tile a,
+.next-dashboard-widget-card a,
+.dashboard-component-count button,
+.dashboard-component-metric button,
+.kpi-tile button {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-top: 10px !important;
+    padding: 7px 12px !important;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+    color: #0b132b !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25) !important;
+    cursor: pointer !important;
+    align-self: flex-start !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    transition: all 0.18s ease !important;
+}
+
+.dashboard-component-count a:hover,
+.dashboard-component-metric a:hover,
+.kpi-tile a:hover,
+.next-dashboard-widget-card a:hover,
+.dashboard-component-count button:hover,
+.dashboard-component-metric button:hover,
+.kpi-tile button:hover {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35) !important;
+}
+
+/* Badge de contagem em cards (ex: '3 abertos') com cor sutil */
+.dashboard-component-metric .badge,
+.kpi-tile .badge,
+.next-dashboard-widget-card .badge {
+    background: rgba(245, 158, 11, 0.15) !important;
+    color: #fbbf24 !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    padding: 2px 8px !important;
+    font-size: 11px !important;
+}

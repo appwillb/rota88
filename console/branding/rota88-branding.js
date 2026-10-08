@@ -811,11 +811,55 @@
         }
     }
 
+
+    // 4.2 Tema da barra de navegacao inferior (MobileNavbar do Fleetbase)
+    // A barra nativa e branca com icones claros - no tema escuro eles ficam
+    // invisiveis. Reforco via JS que pega a barra fixa no rodape independente
+    // da classe concreta (o componente vive num submodule nao editavel).
+    function themeMobileBottomBar() {
+        if (window.innerWidth > 1023) return;
+
+        const candidates = document.querySelectorAll('nav, footer, div');
+        for (const el of candidates) {
+            const style = window.getComputedStyle(el);
+            const isFixedBottom = style.position === 'fixed' && (
+                style.bottom === '0px' || el.classList.contains('bottom-0')
+            );
+            if (!isFixedBottom) continue;
+            if (el.id && el.id.startsWith('rota88-')) continue;
+            if (el.closest('#rota88-modern-tracker-card')) continue;
+
+            if (!el.dataset.rota88Themed) {
+                el.dataset.rota88Themed = 'true';
+                el.style.background = 'linear-gradient(180deg, #0d1527 0%, #0b132b 100%)';
+                el.style.borderTop = '2px solid #f59e0b';
+                el.style.boxShadow = '0 -6px 20px rgba(0,0,0,0.45)';
+                el.style.paddingBottom = 'calc(6px + env(safe-area-inset-bottom))';
+
+                el.querySelectorAll('svg, img').forEach((ic) => {
+                    if (!ic.dataset.rota88Themed) {
+                        ic.dataset.rota88Themed = 'true';
+                        ic.style.color = '#ffffff';
+                        if (ic.tagName === 'svg') ic.style.fill = '#ffffff';
+                        ic.style.opacity = '0.92';
+                    }
+                });
+                el.querySelectorAll('a, button, span:not([class*="badge"])').forEach((t) => {
+                    if (!t.dataset.rota88Themed) {
+                        t.dataset.rota88Themed = 'true';
+                        t.style.color = '#cbd5e1';
+                    }
+                });
+            }
+        }
+    }
+
     // 5. Aplicar Traduções e Limpezas Visuais
     function applyBranding() {
         updateTitle();
         setupSidebarButton();
         setupHeaderButtons();
+        themeMobileBottomBar();
 
         // Substituir logotipos padrão
         const logos = document.querySelectorAll('img[src*="fleetbase-icon"], img[alt="Fleetbase"]');
