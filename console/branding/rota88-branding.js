@@ -823,11 +823,63 @@
     }
 
 
+
+    // 4.3 Drawer lateral mobile: botao hamburger flutuante + overlay.
+    // No mobile a sidebar fica fechada por padrao (CSS secao 18); este botao
+    // abre/fecha por cima do conteudo. Clique em overlay ou link fecha.
+    function setupMobileDrawer() {
+        if (window.innerWidth > 1023) return;
+
+        // Botao hamburger
+        let btn = document.getElementById('rota88-mobile-drawer-btn');
+        if (!btn) {
+            btn = document.createElement('button');
+            btn.id = 'rota88-mobile-drawer-btn';
+            btn.type = 'button';
+            btn.setAttribute('aria-label', 'Abrir menu lateral');
+            btn.innerHTML = '&#9776;';
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                document.body.classList.toggle('rota88-drawer-open');
+                const open = document.body.classList.contains('rota88-drawer-open');
+                btn.innerHTML = open ? '&#10005;' : '&#9776;';
+                btn.setAttribute('aria-label', open ? 'Fechar menu lateral' : 'Abrir menu lateral');
+            });
+            document.body.appendChild(btn);
+        }
+
+        // Overlay escuro
+        let overlay = document.getElementById('rota88-drawer-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'rota88-drawer-overlay';
+            overlay.addEventListener('click', function () {
+                document.body.classList.remove('rota88-drawer-open');
+                if (btn) btn.innerHTML = '&#9776;';
+            });
+            document.body.appendChild(overlay);
+        }
+
+        // Clicar num item do menu fecha o drawer (navegou, recolhe)
+        const sidebar = document.querySelector('.sidebar, [data-sidebar], .next-sidebar, aside, #sidebar-menu-items');
+        if (sidebar && !sidebar.dataset.rota88DrawerWired) {
+            sidebar.dataset.rota88DrawerWired = 'true';
+            sidebar.addEventListener('click', function (e) {
+                const link = e.target.closest('a');
+                if (link) {
+                    document.body.classList.remove('rota88-drawer-open');
+                    if (btn) btn.innerHTML = '&#9776;';
+                }
+            });
+        }
+    }
+
     // 5. Aplicar Traduções e Limpezas Visuais
     function applyBranding() {
         updateTitle();
         setupSidebarButton();
         setupHeaderButtons();
+        setupMobileDrawer();
 
         // Substituir logotipos padrão
         const logos = document.querySelectorAll('img[src*="fleetbase-icon"], img[alt="Fleetbase"]');

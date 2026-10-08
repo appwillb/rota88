@@ -1076,3 +1076,110 @@ main,
 [class*="layout-main"] > section {
     min-height: calc(100vh - 72px) !important;
 }
+
+
+/* ==========================================================================
+   18. SIDEBAR MOBILE: DRAWER OFF-CANVAS (FECHADA POR PADRAO)
+   Corrige o menu lateral cobrindo 75% da tela sem opcao de recolher.
+   No mobile a sidebar fica ESCONDIDA por padrao; um botao flutuante
+   (hamburger) abre/fecha por cima do conteudo com overlay escuro.
+   O botao e injetado pelo branding.js (rota88-mobile-drawer-btn).
+   ========================================================================== */
+@media (max-width: 1023px) {
+
+    /* Sidebar: drawer escondido por padrao, desliza da esquerda */
+    .admin-sidebar,
+    aside.admin-sidebar,
+    .next-admin-sidebar,
+    [data-sidebar="admin"],
+    aside[class*="sidebar"],
+    .sidebar,
+    .next-sidebar,
+    [data-sidebar],
+    #sidebar-menu-items,
+    .sidebar-container {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        height: 100vh !important;
+        width: 82vw !important;
+        max-width: 320px !important;
+        z-index: 100000 !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: none !important;
+        overflow-y: auto !important;
+    }
+
+    /* Aberta: desliza para dentro */
+    body.rota88-drawer-open .admin-sidebar,
+    body.rota88-drawer-open aside.admin-sidebar,
+    body.rota88-drawer-open .next-admin-sidebar,
+    body.rota88-drawer-open [data-sidebar="admin"],
+    body.rota88-drawer-open aside[class*="sidebar"],
+    body.rota88-drawer-open .sidebar,
+    body.rota88-drawer-open .next-sidebar,
+    body.rota88-drawer-open [data-sidebar],
+    body.rota88-drawer-open #sidebar-menu-items,
+    body.rota88-drawer-open .sidebar-container {
+        transform: translateX(0) !important;
+        box-shadow: 20px 0 60px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    /* Conteudo ocupa 100% da tela (sidebar nao reserva espaco) */
+    .layout-main,
+    [class*="layout-main"],
+    .layout-section,
+    [class*="layout-section"] {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Overlay escuro atraz do drawer */
+    #rota88-drawer-overlay {
+        position: fixed !important;
+        inset: 0 !important;
+        background: rgba(0, 0, 0, 0.55) !important;
+        z-index: 99999 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.25s ease !important;
+    }
+
+    body.rota88-drawer-open #rota88-drawer-overlay {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    /* Botao flutuante hamburger (injetado pelo branding.js) */
+    #rota88-mobile-drawer-btn {
+        position: fixed !important;
+        top: 62px !important;
+        left: 14px !important;
+        z-index: 100001 !important;
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 12px !important;
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+        color: #0b132b !important;
+        border: none !important;
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        font-size: 20px !important;
+        font-weight: 800 !important;
+    }
+
+    /* Dica de teclado Ctrl: irrelevante no toque - ocultar */
+    kbd,
+    [class*="keyboard-hint"],
+    [class*="kbd"] {
+        display: none !important;
+    }
+}
+
+/* Em desktop (>1023px) nada muda: sidebar normal como sempre */
