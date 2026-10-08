@@ -1183,3 +1183,54 @@ main,
 }
 
 /* Em desktop (>1023px) nada muda: sidebar normal como sempre */
+
+
+/* ==========================================================================
+   19. AJUSTES FINOS DO DRAWER E HEADER MOBILE (posicionamento)
+   ========================================================================== */
+@media (max-width: 1023px) {
+
+    /* Hamburger desce para NAO cobrir o titulo da pagina (ex: Painel de
+       Controle ficava 'l de Controle' sob o botao) */
+    #rota88-mobile-drawer-btn {
+        top: 110px !important;
+        left: 12px !important;
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 18px !important;
+    }
+
+    /* Titulo da pagina: padding a esquerda evita qualquer colisao */
+    .layout-section h1,
+    .layout-section h2,
+    [class*="layout-section"] > h1,
+    [class*="layout-section"] > h2,
+    main h1,
+    main h2 {
+        padding-left: 4px !important;
+    }
+
+    /* Cabecalho interno das telas (com titulo e acoes) respira */
+    .layout-section > div:first-child,
+    [class*="section-header"],
+    [class*="page-header"] {
+        padding-top: 8px !important;
+    }
+
+    /* Sidebar/drawer: cabecalho proprio com espaco pro botao fechar
+       (o X nao fica sobre a barra de busca) */
+    #sidebar-menu-items > div:first-child,
+    .admin-sidebar > div:first-child,
+    aside[class*="sidebar"] > div:first-child {
+        padding-top: 56px !important;
+    }
+
+    /* Card no fim da lista nunca cortado: scroll com folga */
+    main,
+    .layout-main,
+    [class*="layout-main"] {
+        padding-bottom: 28px !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+}
