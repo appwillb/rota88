@@ -910,3 +910,90 @@ aside input::placeholder {
     padding: 2px 8px !important;
     font-size: 11px !important;
 }
+
+
+/* ==========================================================================
+   15. BARRA DE NAVEGACAO INFERIOR MOBILE: OCULTA (DECISAO DE PRODUTO)
+   A MobileNavbar nativa (busca + sanduiche) e redundante - a navegacao
+   completa ja existe na sidebar (menu sanduiche do header) - e trazia
+   problemas visuais persistentes (barra branca, pills quebradas, sobreposicao
+   do painel de contexto). Oculta por completo ate que o Rota88 tenha barra
+   inferior propria, construida no fork.
+   ========================================================================== */
+@media (max-width: 1023px) {
+    .mobile-navbar,
+    nav.mobile-navbar,
+    [data-test-mobile-navbar],
+    .layout-mobile-navbar,
+    footer.mobile-navbar,
+    div[class*="mobile-navbar"],
+    div.fixed.bottom-0.inset-x-0.z-50[class*="navbar"] {
+        display: none !important;
+    }
+
+    /* Conteudo ocupa a tela inteira novamente (sem vazio onde ficava a barra) */
+    .layout-main,
+    .layout-container,
+    main,
+    [class*="layout-main"] {
+        padding-bottom: 16px !important;
+    }
+}
+
+/* ==========================================================================
+   16. PAINEL DE CONTEXTO / PAINEL LATERAL DIREITO (ResourceContextPanel)
+   Corrige cards cortados na borda direita (ex: 'Entrega RUA M14...' e cards
+   'despachado' truncados): limita largura, permite scroll vertical proprio
+   e garante que nada seja cortado horizontalmente.
+   ========================================================================== */
+.resource-context-panel,
+[class*="resource-context"],
+[class*="context-panel"],
+.right-sidebar,
+[class*="right-sidebar"] {
+    max-width: 420px !important;
+    width: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Cards dentro do painel de contexto: sem overflow cortando texto */
+.resource-context-panel .card,
+[class*="resource-context"] .card,
+[class*="resource-context"] [class*="card"],
+.right-sidebar .card,
+[class*="right-sidebar"] .card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+}
+
+/* Titulos/enderecos longos quebram linha em vez de vazar */
+.resource-context-panel h1,
+.resource-context-panel h2,
+.resource-context-panel h3,
+[class*="resource-context"] h1,
+[class*="resource-context"] h2,
+[class*="resource-context"] h3,
+.right-sidebar h3,
+[class*="right-sidebar"] h3 {
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+}
+
+@media (max-width: 1023px) {
+    /* No mobile o painel de contexto nao fica espremido ao lado:
+       ocupa a tela quando aberto */
+    .resource-context-panel,
+    [class*="resource-context"],
+    [class*="context-panel"],
+    .right-sidebar,
+    [class*="right-sidebar"] {
+        max-width: 100% !important;
+    }
+}
