@@ -21,7 +21,7 @@ header a[href="/"] img,
 nav a[href="/"] img,
 img[src*="fleetbase-icon"],
 img[alt="Fleetbase"] {
-    content: url('/images/rota88-logo.svg') !important;
+    /* Logo e substituido via branding.js (src swap): content: url() e ignorado por Safari/Firefox e causa layout quebrado. Mantido fora por seguranca. */
     height: 38px !important;
     width: 170px !important;
     min-width: 170px !important;

@@ -52,6 +52,11 @@ COPY --from=builder /console/dist /usr/share/nginx/html
 # /assets/rota88-theme.css and /assets/rota88-branding.js resolve in nginx
 COPY branding/ /usr/share/nginx/html/branding/
 
+# Healthcheck para o Coolify detectar queda do console
+RUN apk add --no-cache curl
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:4200/ || exit 1
+
 # Expose the port nginx is bound to
 EXPOSE 4200
 

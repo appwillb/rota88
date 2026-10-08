@@ -127,6 +127,22 @@ DB_DATABASE=fleetbase
 SESSION_DOMAIN=.seudominio.com
 ```
 
+> **Importante (seguranca):** os docker-compose deste projeto nao tem mais senha padrao.
+> Sem `DB_ROOT_PASSWORD` e `DB_PASSWORD` definidas no Coolify, o deploy falha de proposito
+> com mensagem de erro explicita (melhor falhar alto do que subir com senha fraca).
+> A porta do MySQL (3306) tambem nao e mais publicada no host - o banco so e acessivel
+> pela rede interna dos containers.
+
+> **Headers de seguranca no console:** o nginx do painel agora envia X-Frame-Options,
+> X-Content-Type-Options, Referrer-Policy, Strict-Transport-Security (HSTS) e
+> Permissions-Policy, protegendo a tela publica de rastreio contra clickjacking,
+> MIME-sniffing e vazamento da URL de rastreio em referrers externos.
+
+> **Performance do tema e traducao:** o motor de branding foi otimizado - as traducoes
+> agora sao aplicadas com debounce (em lote) em vez de varrer o DOM continuamente
+> a cada 1 segundo. Telas pesadas do painel ficam mais fluidas e o uso de CPU no
+> navegador do cliente cai drasticamente.
+
 #### Passo 5.6: Iniciar o Deploy
 Clique em **Deploy** no Coolify.
 O Coolify vai:

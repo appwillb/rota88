@@ -24,6 +24,16 @@
     }
 
     // 3. Dicionário Mestre Completo de Tradução (Chaves normalizadas em minúsculas)
+    // Escapa texto antes de injetar em innerHTML (protecao XSS na tela publica de rastreio)
+    function escapeHtml(str) {
+        return String(str == null ? '' : str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
     const DICTIONARY = {
         "fleetbase": "Rota88",
         "new": "Novo",
@@ -1064,7 +1074,7 @@
                             iconAnchor: [19, 19]
                         });
                         window.L.marker(pickupCoord, { icon: storeIcon }).addTo(rescueMap)
-                            .bindPopup('<b>🏪 Farmácia (Ponto de Coleta)</b><br>' + (payload.pickup?.name || 'Farmácia'));
+                            .bindPopup('<b>🏪 Farmácia (Ponto de Coleta)</b><br>' + escapeHtml(payload.pickup?.name || 'Farmácia'));
                     }
 
                     if (dropoffCoord) {
@@ -1076,7 +1086,7 @@
                             iconAnchor: [19, 19]
                         });
                         window.L.marker(dropoffCoord, { icon: clientIcon }).addTo(rescueMap)
-                            .bindPopup('<b>📍 Destino (Cliente)</b><br>' + (payload.dropoff?.street1 || payload.dropoff?.name || 'Endereço de Entrega'));
+                            .bindPopup('<b>📍 Destino (Cliente)</b><br>' + escapeHtml(payload.dropoff?.street1 || payload.dropoff?.name || 'Endereço de Entrega'));
                     }
 
                     if (pickupCoord && dropoffCoord) {
@@ -1130,8 +1140,8 @@
                         modernCard.style.cssText = 'position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 100002; background: #ffffff; border-radius: 20px; box-shadow: 0 12px 35px rgba(0,0,0,0.3); padding: 18px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 500px; margin: 0 auto;';
                         
                         const statusTitle = payload.status === 'dispatched' ? '🛵 Entregador a caminho!' : (payload.status === 'completed' ? '✅ Pedido Entregue!' : '📦 Pedido em Preparação');
-                        const pharmacyName = payload.pickup?.name || 'Farmácia Parceira';
-                        const clientAddr = payload.dropoff?.street1 || payload.dropoff?.name || 'Endereço de Entrega';
+                        const pharmacyName = escapeHtml(payload.pickup?.name || 'Farmácia Parceira');
+                        const clientAddr = escapeHtml(payload.dropoff?.street1 || payload.dropoff?.name || 'Endereço de Entrega');
                         const clientPhone = payload.dropoff?.phone || '';
 
                         modernCard.innerHTML = `
@@ -1203,9 +1213,32 @@
     }
 
     // MutationObserver para Single Page Application (SPA)
+    // Otimizado: em vez de varrer o DOM em CADA mutacao (loop infinito, pois a
+    // propria traducao muta o DOM e re-dispara o observer), acumulamos as
+    // mutacoes e processamos em lote com debounce. Reduz drasticamente o uso
+    // de CPU no painel e evita travamentos em telas pesadas.
+    let brandingTimer = null;
+    let trackingTimer = null;
+
+    function scheduleBranding() {
+        if (brandingTimer) return;
+        brandingTimer = setTimeout(() => {
+            brandingTimer = null;
+            applyBranding();
+        }, 250);
+    }
+
+    function scheduleTracking() {
+        if (trackingTimer) return;
+        trackingTimer = setTimeout(() => {
+            trackingTimer = null;
+            autoFixTrackingMap();
+        }, 1000);
+    }
+
     const observer = new MutationObserver(() => {
-        applyBranding();
-        autoFixTrackingMap();
+        scheduleBranding();
+        scheduleTracking();
     });
 
     observer.observe(document.documentElement, {
@@ -1213,8 +1246,10 @@
         subtree: true
     });
 
+    // Rede de seguranca leve (nao mais varredura completa a cada 1s):
+    // a cada 15s apenas atualiza titulo e rastreio, sem re-traduzir tudo
     setInterval(() => {
-        applyBranding();
+        updateTitle();
         autoFixTrackingMap();
-    }, 1000);
+    }, 15000);
 })();
