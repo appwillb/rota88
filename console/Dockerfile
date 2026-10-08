@@ -48,6 +48,10 @@ FROM nginx:alpine
 # Copy the built app to our served directory
 COPY --from=builder /console/dist /usr/share/nginx/html
 
+# Copy Rota88 branding assets (theme, translation engine, logos) so that
+# /assets/rota88-theme.css and /assets/rota88-branding.js resolve in nginx
+COPY branding/ /usr/share/nginx/html/branding/
+
 # Expose the port nginx is bound to
 EXPOSE 4200
 
