@@ -155,6 +155,9 @@ services:
       - "4200:4200"
     labels:
       - "traefik.http.services.console.loadbalancer.server.port=4200"
+      # Marca o console como SERVICO PRINCIPAL da stack para o Coolify
+      # (resolve o erro "no service selected" em deploys Docker Compose)
+      - "coolify.main-service=true"
     environment:
       DISABLE_RUNTIME_CONFIG: "false"
     volumes:
