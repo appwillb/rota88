@@ -1179,9 +1179,15 @@
                                         opacity: 0.95
                                     }).addTo(rescueMap);
 
-                                    rescueMap.fitBounds(poly.getBounds(), { padding: [60, 60] });
+                                    rescueMap.fitBounds(poly.getBounds(), {
+                                        paddingTopLeft: [70, 30],
+                                        paddingBottomRight: [240, 30]
+                                    });
                                 } else {
-                                    rescueMap.fitBounds(bounds, { padding: [60, 60] });
+                                    rescueMap.fitBounds(bounds, {
+                                        paddingTopLeft: [70, 30],
+                                        paddingBottomRight: [240, 30]
+                                    });
                                 }
                             })
                             .catch(() => {
@@ -1190,66 +1196,66 @@
                                     weight: 4,
                                     dashArray: '6, 8'
                                 }).addTo(rescueMap);
-                                rescueMap.fitBounds(directLine.getBounds(), { padding: [60, 60] });
+                                rescueMap.fitBounds(directLine.getBounds(), {
+                                    paddingTopLeft: [70, 30],
+                                    paddingBottomRight: [240, 30]
+                                });
                             });
                     } else if (bounds.length > 0) {
-                        rescueMap.fitBounds(bounds, { padding: [60, 60] });
+                        rescueMap.fitBounds(bounds, {
+                                        paddingTopLeft: [70, 30],
+                                        paddingBottomRight: [240, 30]
+                                    });
                     }
 
-                    // Criar container de visualização estilo iFood/Rappi se não existir
+                    // Criar container de visualização estilo iFood/Rappi compacto sem cobrir a rota
                     let modernCard = document.getElementById('rota88-modern-tracker-card');
                     if (!modernCard) {
                         modernCard = document.createElement('div');
                         modernCard.id = 'rota88-modern-tracker-card';
-                        modernCard.style.cssText = 'position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 100002; background: #ffffff; border-radius: 20px; box-shadow: 0 12px 35px rgba(0,0,0,0.3); padding: 18px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 500px; margin: 0 auto;';
+                        modernCard.style.cssText = 'position: fixed; bottom: 12px; left: 12px; right: 12px; z-index: 100002; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.22); padding: 14px 16px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 480px; margin: 0 auto; border: 1px solid rgba(226, 232, 240, 0.8);';
                         
                         const statusTitle = payload.status === 'dispatched' ? '🛵 Entregador a caminho!' : (payload.status === 'completed' ? '✅ Pedido Entregue!' : '📦 Pedido em Preparação');
                         const pharmacyName = escapeHtml(payload.pickup?.name || 'Farmácia Parceira');
                         const clientAddr = escapeHtml(payload.dropoff?.street1 || payload.dropoff?.name || 'Endereço de Entrega');
-                        const clientPhone = payload.dropoff?.phone || '';
 
                         modernCard.innerHTML = `
-                            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 12px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
                                 <div>
-                                    <span style="background: #fef3c7; color: #d97706; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px; text-transform: uppercase;">ZapFarm Express</span>
-                                    <h3 style="margin: 4px 0 0 0; font-size: 16px; font-weight: 800; color: #0f172a;">${statusTitle}</h3>
+                                    <span style="background: #fef3c7; color: #b45309; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px;">ZapFarm Express</span>
+                                    <h3 style="margin: 3px 0 0 0; font-size: 15px; font-weight: 800; color: #0f172a;">${statusTitle}</h3>
                                 </div>
-                                <div style="width: 42px; height: 42px; background: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 10px rgba(37,99,235,0.4);">🛵</div>
+                                <div style="width: 38px; height: 38px; background: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 4px 10px rgba(37,99,235,0.35);">🛵</div>
                             </div>
 
-                            <!-- Barra de Progresso Visual Estilo App -->
-                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                            <!-- Barra de Progresso Visual Compacta -->
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
                                 <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
-                                    <div style="width: 24px; height: 24px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">✓</div>
-                                    <span style="font-size: 10.5px; color: #64748b; margin-top: 4px; font-weight: 600;">Confirmado</span>
+                                    <div style="width: 20px; height: 20px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">✓</div>
+                                    <span style="font-size: 10px; color: #64748b; margin-top: 3px; font-weight: 600;">Confirmado</span>
                                 </div>
-                                <div style="height: 3px; background: #10b981; flex: 1; margin: 0 4px -14px 4px;"></div>
+                                <div style="height: 3px; background: #10b981; flex: 1; margin: 0 4px -12px 4px;"></div>
                                 <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
-                                    <div style="width: 24px; height: 24px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">✓</div>
-                                    <span style="font-size: 10.5px; color: #64748b; margin-top: 4px; font-weight: 600;">Embalado</span>
+                                    <div style="width: 20px; height: 20px; border-radius: 50%; background: #10b981; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">✓</div>
+                                    <span style="font-size: 10px; color: #64748b; margin-top: 3px; font-weight: 600;">Embalado</span>
                                 </div>
-                                <div style="height: 3px; background: ${payload.status === 'dispatched' || payload.status === 'completed' ? '#10b981' : '#e2e8f0'}; flex: 1; margin: 0 4px -14px 4px;"></div>
+                                <div style="height: 3px; background: ${payload.status === 'dispatched' || payload.status === 'completed' ? '#10b981' : '#e2e8f0'}; flex: 1; margin: 0 4px -12px 4px;"></div>
                                 <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
-                                    <div style="width: 24px; height: 24px; border-radius: 50%; background: ${payload.status === 'dispatched' || payload.status === 'completed' ? '#2563eb' : '#cbd5e1'}; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">🛵</div>
-                                    <span style="font-size: 10.5px; color: ${payload.status === 'dispatched' ? '#2563eb' : '#64748b'}; margin-top: 4px; font-weight: 700;">A Caminho</span>
+                                    <div style="width: 20px; height: 20px; border-radius: 50%; background: ${payload.status === 'dispatched' || payload.status === 'completed' ? '#2563eb' : '#cbd5e1'}; color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">🛵</div>
+                                    <span style="font-size: 10px; color: ${payload.status === 'dispatched' ? '#2563eb' : '#64748b'}; margin-top: 3px; font-weight: 700;">A Caminho</span>
                                 </div>
                             </div>
 
-                            <div style="font-size: 12.5px; color: #334155; line-height: 1.5; margin-bottom: 12px; background: #f8fafc; padding: 12px; border-radius: 12px;">
-                                <div style="margin-bottom: 6px;">🏪 <b>Coleta:</b> ${pharmacyName}</div>
-                                <div>📍 <b>Entrega:</b> ${clientAddr}</div>
-                            </div>
-
-                            <!-- Botões de Ação Rápida -->
-                            <div style="display: flex; gap: 8px;">
-                                ${dropoffCoord ? `
-                                <a href="https://www.google.com/maps/dir/?api=1&destination=${dropoffCoord[0]},${dropoffCoord[1]}" target="_blank" style="flex: 1; text-align: center; background: #0f172a; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;">
-                                    🗺️ Abrir no Maps
-                                </a>` : ''}
-                                ${clientPhone ? `
-                                <a href="https://wa.me/${clientPhone.replace(/\\D/g, '')}" target="_blank" style="flex: 1; text-align: center; background: #16a34a; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px;">
-                                    💬 WhatsApp
-                                </a>` : ''}
+                            <!-- Endereços com visual limpo -->
+                            <div style="font-size: 11.5px; color: #334155; line-height: 1.45; background: #f8fafc; padding: 9px 12px; border-radius: 10px; border: 1px solid #f1f5f9;">
+                                <div style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 6px;">
+                                    <span>🏪</span>
+                                    <div><b>Coleta:</b> ${pharmacyName}</div>
+                                </div>
+                                <div style="display: flex; align-items: flex-start; gap: 6px;">
+                                    <span>📍</span>
+                                    <div><b>Entrega:</b> ${clientAddr}</div>
+                                </div>
                             </div>
                         `;
                         document.body.appendChild(modernCard);
